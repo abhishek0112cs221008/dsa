@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>30-Day DSA Mastery Plan (LeetCode)</title>
+
+<style>
+:root {
+  --bg:#f3f4f6; --card:#ffffff; --text:#111827;
+  --muted:#6b7280; --accent:#2563eb; --border:#e5e7eb;
+}
+body.dark {
+  --bg:#020617; --card:#0f172a; --text:#e5e7eb;
+  --muted:#94a3b8; --accent:#60a5fa; --border:#1e293b;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; font-family:Inter,Arial,sans-serif;
+  background:var(--bg); color:var(--text); transition:.3s;
+}
+header {
+  position:sticky; top:0; z-index:100;
+  background:var(--card); border-bottom:1px solid var(--border);
+  padding:14px 20px; display:flex; justify-content:space-between; align-items:center;
+}
+header h1 { margin:0; font-size:18px; }
+.controls { display:flex; gap:12px; align-items:center; }
+.progress { font-weight:600; color:var(--accent); }
+button {
+  background:var(--accent); color:#fff; border:none;
+  border-radius:8px; padding:6px 12px; cursor:pointer;
+}
+.container { max-width:950px; margin:auto; padding:20px; }
+.week {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:20px; margin-bottom:30px;
+}
+.week h2 { margin-top:0; }
+details {
+  margin-top:14px; padding:12px;
+  border:1px solid var(--border); border-radius:10px;
+  background:var(--bg);
+}
+summary { font-weight:600; cursor:pointer; }
+ul { list-style:none; padding:0; margin-top:12px; }
+li {
+  display:flex; align-items:center; gap:10px;
+  padding:6px 8px; border-radius:8px;
+}
+li:hover { background:rgba(37,99,235,0.06); }
+a { color:var(--accent); text-decoration:none; font-weight:500; }
+a:hover { text-decoration:underline; }
+.pattern { font-size:13px; color:var(--muted); }
+@media(max-width:600px){
+  header h1{font-size:16px;}
+  .container{padding:14px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🚀 30-Day DSA Mastery Plan</h1>
+  <div class="controls">
+    <div class="progress">Progress: <span id="progress">0%</span></div>
+    <button onclick="toggleDark()">🌙</button>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ================= WEEK 1 ================= -->
+<div class="week">
+<h2>🧠 WEEK 1 – Arrays & Strings (40)</h2>
+
+<details><summary>Day 1 – Array Basics</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/two-sum/" target="_blank">Two Sum</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/running-sum-of-1d-array/" target="_blank">Running Sum of 1d Array</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/maximum-subarray/" target="_blank">Maximum Subarray</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank">Best Time to Buy and Sell Stock</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/contains-duplicate/" target="_blank">Contains Duplicate</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/plus-one/" target="_blank">Plus One</a></li>
+</ul></details>
+
+<details><summary>Day 2 – Two Pointers</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/" target="_blank">Remove Duplicates from Sorted Array</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/move-zeroes/" target="_blank">Move Zeroes</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/valid-palindrome/" target="_blank">Valid Palindrome</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/reverse-string/" target="_blank">Reverse String</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/container-with-most-water/" target="_blank">Container With Most Water</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/squares-of-a-sorted-array/" target="_blank">Squares of a Sorted Array</a></li>
+</ul></details>
+
+<details><summary>Day 3 – Sliding Window</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/maximum-average-subarray-i/" target="_blank">Maximum Average Subarray I</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank">Longest Substring Without Repeating Characters</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/minimum-size-subarray-sum/" target="_blank">Minimum Size Subarray Sum</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/permutation-in-string/" target="_blank">Permutation in String</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/find-all-anagrams-in-a-string/" target="_blank">Find All Anagrams in a String</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/subarray-product-less-than-k/" target="_blank">Subarray Product Less Than K</a></li>
+</ul></details>
+
+<details><summary>Day 4 – String + Hashing</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/valid-anagram/" target="_blank">Valid Anagram</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/first-unique-character-in-a-string/" target="_blank">First Unique Character</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/group-anagrams/" target="_blank">Group Anagrams</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/ransom-note/" target="_blank">Ransom Note</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/isomorphic-strings/" target="_blank">Isomorphic Strings</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/longest-palindrome/" target="_blank">Longest Palindrome</a></li>
+</ul></details>
+
+<details><summary>Day 5 – Prefix / Misc</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/range-sum-query-immutable/" target="_blank">Range Sum Query – Immutable</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/product-of-array-except-self/" target="_blank">Product of Array Except Self</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/find-pivot-index/" target="_blank">Find Pivot Index</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/majority-element/" target="_blank">Majority Element</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/rotate-array/" target="_blank">Rotate Array</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/intersection-of-two-arrays/" target="_blank">Intersection of Two Arrays</a></li>
+</ul></details>
+</div>
+
+<!-- ================= WEEK 2 ================= -->
+<div class="week">
+<h2>🔗 WEEK 2 – Linked List, Stack & Hashing (42)</h2>
+
+<details><summary>Linked List Basics</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/reverse-linked-list/" target="_blank">Reverse Linked List</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/middle-of-the-linked-list/" target="_blank">Middle of the Linked List</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank">Linked List Cycle</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/remove-linked-list-elements/" target="_blank">Remove Linked List Elements</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/palindrome-linked-list/" target="_blank">Palindrome Linked List</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank">Intersection of Two Linked Lists</a></li>
+</ul></details>
+
+<details><summary>Fast & Slow Pointer</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank">Remove Nth Node From End</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank">Detect Cycle II</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/happy-number/" target="_blank">Happy Number</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/find-the-duplicate-number/" target="_blank">Find Duplicate Number</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/reorder-list/" target="_blank">Reorder List</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/odd-even-linked-list/" target="_blank">Odd Even Linked List</a></li>
+</ul></details>
+
+<details><summary>Stack</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/valid-parentheses/" target="_blank">Valid Parentheses</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/min-stack/" target="_blank">Min Stack</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/next-greater-element-i/" target="_blank">Next Greater Element I</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/daily-temperatures/" target="_blank">Daily Temperatures</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/evaluate-reverse-polish-notation/" target="_blank">Evaluate RPN</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/backspace-string-compare/" target="_blank">Backspace String Compare</a></li>
+</ul></details>
+
+<details><summary>Hashing</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/top-k-frequent-elements/" target="_blank">Top K Frequent Elements</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/" target="_blank">Two Sum II</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/subarray-sum-equals-k/" target="_blank">Subarray Sum Equals K</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/longest-consecutive-sequence/" target="_blank">Longest Consecutive Sequence</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/contains-duplicate-ii/" target="_blank">Contains Duplicate II</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/word-pattern/" target="_blank">Word Pattern</a></li>
+</ul></details>
+</div>
+
+<!-- ================= WEEK 3 ================= -->
+<div class="week">
+<h2>🌲 WEEK 3 – Trees (38)</h2>
+
+<details><summary>DFS Traversals</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/" target="_blank">Inorder Traversal</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-preorder-traversal/" target="_blank">Preorder Traversal</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-postorder-traversal/" target="_blank">Postorder Traversal</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-paths/" target="_blank">Binary Tree Paths</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/same-tree/" target="_blank">Same Tree</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/symmetric-tree/" target="_blank">Symmetric Tree</a></li>
+</ul></details>
+
+<details><summary>Height / Depth</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/" target="_blank">Maximum Depth</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/" target="_blank">Minimum Depth</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/balanced-binary-tree/" target="_blank">Balanced Binary Tree</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/diameter-of-binary-tree/" target="_blank">Diameter of Binary Tree</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/count-complete-tree-nodes/" target="_blank">Count Complete Tree Nodes</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/invert-binary-tree/" target="_blank">Invert Binary Tree</a></li>
+</ul></details>
+
+<details><summary>Path Based</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/path-sum/" target="_blank">Path Sum</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/path-sum-ii/" target="_blank">Path Sum II</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/sum-root-to-leaf-numbers/" target="_blank">Sum Root to Leaf</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-tilt/" target="_blank">Binary Tree Tilt</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" target="_blank">LCA of BST</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank">LCA of Binary Tree</a></li>
+</ul></details>
+
+<details><summary>BFS</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-level-order-traversal/" target="_blank">Level Order Traversal</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/average-of-levels-in-binary-tree/" target="_blank">Average of Levels</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-right-side-view/" target="_blank">Right Side View</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/" target="_blank">Minimum Depth</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/" target="_blank">Zigzag Level Order</a></li>
+</ul></details>
+</div>
+
+<!-- ================= WEEK 4 ================= -->
+<div class="week">
+<h2>🧮 WEEK 4 – Graphs & DP (35)</h2>
+
+<details><summary>Graph BFS / DFS</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/number-of-islands/" target="_blank">Number of Islands</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/flood-fill/" target="_blank">Flood Fill</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/max-area-of-island/" target="_blank">Max Area of Island</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/clone-graph/" target="_blank">Clone Graph</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/surrounded-regions/" target="_blank">Surrounded Regions</a></li>
+</ul></details>
+
+<details><summary>Graph Advanced</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/course-schedule/" target="_blank">Course Schedule</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/course-schedule-ii/" target="_blank">Course Schedule II</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/find-if-path-exists-in-graph/" target="_blank">Path Exists in Graph</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/number-of-provinces/" target="_blank">Number of Provinces</a></li>
+</ul></details>
+
+<details><summary>DP 1D</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank">Climbing Stairs</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/house-robber/" target="_blank">House Robber</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/house-robber-ii/" target="_blank">House Robber II</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/fibonacci-number/" target="_blank">Fibonacci Number</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/min-cost-climbing-stairs/" target="_blank">Min Cost Climbing Stairs</a></li>
+</ul></details>
+
+<details><summary>DP 2D</summary><ul>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/coin-change/" target="_blank">Coin Change</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/unique-paths/" target="_blank">Unique Paths</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/unique-paths-ii/" target="_blank">Unique Paths II</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/longest-increasing-subsequence/" target="_blank">Longest Increasing Subsequence</a></li>
+<li><input type="checkbox"><a href="https://leetcode.com/problems/partition-equal-subset-sum/" target="_blank">Partition Equal Subset Sum</a></li>
+</ul></details>
+</div>
+
+</div>
+
+<script>
+const boxes=document.querySelectorAll("input[type='checkbox']");
+const progress=document.getElementById("progress");
+
+function updateProgress(){
+  const checked=document.querySelectorAll("input:checked").length;
+  const percent=Math.round((checked/boxes.length)*100);
+  progress.textContent=percent+"%";
+  localStorage.setItem("dsa-progress",JSON.stringify([...boxes].map(b=>b.checked)));
+}
+boxes.forEach(b=>b.addEventListener("change",updateProgress));
+
+const saved=JSON.parse(localStorage.getItem("dsa-progress")||"[]");
+boxes.forEach((b,i)=>b.checked=saved[i]);
+updateProgress();
+
+function toggleDark(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("dark",document.body.classList.contains("dark"));
+}
+if(localStorage.getItem("dark")==="true"){
+  document.body.classList.add("dark");
+}
+</script>
+
+</body>
+</html>
