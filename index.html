@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>DSA</title>
+<title>DSA Mastery Dashboard</title>
 
 <style>
 :root {
@@ -18,22 +18,18 @@
 
 body.dark {
   --bg: #000000;
-  --secondary-bg: #1d1d1f;
+  --secondary-bg: #1c1c1e;
   --text: #f5f5f7;
-  --text-secondary: #86868b;
-  --accent: #2997ff;
-  --border: #424245;
-  --hover: #1d1d1f;
+  --text-secondary: #8e8e93;
+  --accent: #0a84ff;
+  --border: #38383a;
+  --hover: #2c2c2e;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
   background: var(--bg);
   color: var(--text);
   transition: background 0.3s, color 0.3s;
@@ -46,232 +42,131 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--bg);
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--border);
-  padding: 12px 0;
-}
-
-body.dark header {
-  background: rgba(0, 0, 0, 0.8);
 }
 
 .header-content {
-  max-width: 980px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 22px;
+  padding: 12px 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-h1 {
-  font-size: 21px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
+h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.022em; }
 
-.controls {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.progress-text {
-  font-size: 15px;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
+.controls { display: flex; gap: 16px; align-items: center; }
+.progress-text { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
 
 button {
-  background: none;
-  border: none;
-  color: var(--accent);
-  font-size: 15px;
-  cursor: pointer;
-  font-weight: 400;
-  padding: 0;
-  transition: opacity 0.2s;
+  background: none; border: none; color: var(--accent);
+  font-size: 14px; cursor: pointer; font-weight: 500; transition: opacity 0.2s;
 }
+button:hover { opacity: 0.7; }
 
-button:hover {
-  opacity: 0.7;
-}
+/* Progress Bar */
+.progress-container { width: 100%; height: 3px; background: var(--secondary-bg); overflow: hidden; }
+#progress-bar { height: 100%; width: 0%; background: var(--accent); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 
-/* Container */
-.container {
-  max-width: 980px;
+/* Layout Wrapper */
+.layout-wrapper {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 48px 22px;
+  display: flex;
+  gap: 32px;
+  padding: 40px 22px;
+  align-items: flex-start;
 }
 
-.intro {
-  margin-bottom: 48px;
+/* Main Content */
+.main-content {
+  flex: 1;
+  min-width: 0;
 }
 
-.intro h2 {
-  font-size: 40px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  margin-bottom: 8px;
+.intro { margin-bottom: 32px; }
+.intro h2 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+.intro p { font-size: 18px; color: var(--text-secondary); }
+
+/* Calendar Sidebar */
+.sidebar {
+  width: 260px;
+  position: sticky;
+  top: 80px;
 }
 
-.intro p {
-  font-size: 17px;
-  color: var(--text-secondary);
-  font-weight: 400;
+.calendar-card {
+  background: var(--secondary-bg);
+  border-radius: 20px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-/* Week */
-.week {
-  margin-bottom: 48px;
+.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.calendar-header h3 { font-size: 14px; font-weight: 700; color: var(--text); }
+
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.calendar-weekday { font-size: 10px; font-weight: 700; color: var(--text-secondary); text-align: center; padding-bottom: 4px; }
+.calendar-day { 
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center; 
+    border-radius: 50%; font-size: 11px; color: var(--text); font-weight: 500;
+}
+.calendar-day.today { background: var(--accent); color: white; font-weight: 700; }
+.calendar-day.completed { border: 1.5px solid var(--accent); color: var(--accent); font-weight: 700; }
+
+.stat-box { 
+    background: var(--bg); padding: 12px; border-radius: 14px; 
+    text-align: center; margin-top: 14px; border: 1px solid var(--border);
 }
 
-.week h2 {
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 24px;
-}
+/* Problem List UI - Comfortable Sizing */
+.week { margin-bottom: 40px; }
+.week h2 { font-size: 24px; font-weight: 700; margin-bottom: 20px; }
 
-/* Details */
 details {
-  margin-bottom: 8px;
-  border-radius: 12px;
-  overflow: hidden;
+  margin-bottom: 10px; border-radius: 12px; overflow: hidden;
+  background: var(--secondary-bg); border: 1px solid var(--border);
 }
 
 summary {
-  padding: 16px 20px;
-  cursor: pointer;
-  user-select: none;
-  list-style: none;
-  background: var(--secondary-bg);
-  font-size: 17px;
-  font-weight: 500;
-  transition: background 0.2s;
+  padding: 14px 18px; cursor: pointer; user-select: none;
+  list-style: none; font-size: 16px; font-weight: 600;
+  display: flex; justify-content: space-between; align-items: center;
 }
 
-summary::-webkit-details-marker {
-  display: none;
-}
+summary::after { content: '+'; font-size: 18px; transition: transform 0.3s; }
+details[open] summary::after { transform: rotate(45deg); }
 
-summary:hover {
-  background: var(--hover);
-}
+.pattern-count { color: var(--text-secondary); font-weight: 400; font-size: 13px; margin-left: 8px; }
 
-summary::after {
-  content: '+';
-  float: right;
-  font-size: 20px;
-  font-weight: 300;
-  transition: transform 0.3s;
-}
-
-details[open] summary::after {
-  transform: rotate(45deg);
-}
-
-.pattern {
-  color: var(--text-secondary);
-  font-weight: 400;
-  font-size: 15px;
-}
-
-/* List */
-ul {
-  list-style: none;
-  padding: 8px 20px 20px 20px;
-  background: var(--secondary-bg);
-}
-
-li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-li:last-child {
-  border-bottom: none;
-}
+ul { list-style: none; padding: 0 18px 14px 18px; }
+li { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+li:last-child { border-bottom: none; }
 
 input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  appearance: none;
-  flex-shrink: 0;
-  transition: all 0.2s;
+  width: 20px; height: 20px; cursor: pointer; border-radius: 50%;
+  border: 1.5px solid var(--border); appearance: none; flex-shrink: 0; transition: all 0.2s;
 }
 
-input[type="checkbox"]:checked {
-  background: var(--accent);
-  border-color: var(--accent);
-  position: relative;
-}
-
+input[type="checkbox"]:checked { background: var(--accent); border-color: var(--accent); position: relative; }
 input[type="checkbox"]:checked::after {
-  content: '✓';
-  position: absolute;
-  color: white;
-  font-size: 12px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  content: '✓'; position: absolute; color: white; font-size: 12px; top: 50%; left: 50%; transform: translate(-50%, -50%);
 }
 
-a {
-  color: var(--text);
-  text-decoration: none;
-  font-size: 15px;
-  flex: 1;
-  transition: color 0.2s;
-}
+a { color: var(--text); text-decoration: none; font-size: 15px; flex: 1; transition: color 0.2s; }
+a:hover { color: var(--accent); }
 
-a:hover {
-  color: var(--accent);
-}
+input[type="checkbox"]:checked + a { color: var(--text-secondary); text-decoration: line-through; }
 
-input[type="checkbox"]:checked + a {
-  color: var(--text-secondary);
-  text-decoration: line-through;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .intro h2 {
-    font-size: 32px;
-  }
-  
-  .week h2 {
-    font-size: 24px;
-  }
-  
-  .container {
-    padding: 32px 20px;
-  }
-  
-  .intro {
-    margin-bottom: 32px;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 17px;
-  }
-  
-  .intro h2 {
-    font-size: 28px;
-  }
-  
-  .intro p {
-    font-size: 15px;
-  }
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .layout-wrapper { flex-direction: column-reverse; gap: 24px; }
+  .sidebar { width: 100%; position: static; }
+  .calendar-card { max-width: 320px; margin: 0 auto; }
 }
 </style>
 </head>
@@ -280,214 +175,414 @@ input[type="checkbox"]:checked + a {
 
 <header>
   <div class="header-content">
-    <h1>DSA Mastery Plan</h1>
+    <h1>DSA Mastery</h1>
     <div class="controls">
-      <span class="progress-text"><span id="progress">0</span>/155</span>
+      <span class="progress-text"><span id="progress-count">0</span> / <span id="total-count">0</span></span>
       <button onclick="toggleDark()">Theme</button>
     </div>
   </div>
+  <div class="progress-container"><div id="progress-bar"></div></div>
 </header>
 
-<div class="container">
+<div class="layout-wrapper">
+  <!-- Left Side: Problem List -->
+  <main class="main-content">
+    <div class="intro">
+      <h2 id="hero-title">30 Days Mastery</h2>
+      <p id="hero-subtitle">Curated patterns for deep intuition.</p>
+    </div>
+    <div id="curriculum-container"></div>
+  </main>
 
-<div class="intro">
-  <h2>30 Days to Master DSA</h2>
-  <p>155 curated problems organized by pattern</p>
-</div>
-
-<!-- ================= WEEK 1 ================= -->
-<div class="week">
-<h2>Week 1 — Arrays & Strings</h2>
-
-<details><summary>Array Basics <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/two-sum/" target="_blank">Two Sum</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/running-sum-of-1d-array/" target="_blank">Running Sum of 1d Array</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/maximum-subarray/" target="_blank">Maximum Subarray</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank">Best Time to Buy and Sell Stock</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/contains-duplicate/" target="_blank">Contains Duplicate</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/plus-one/" target="_blank">Plus One</a></li>
-</ul></details>
-
-<details><summary>Two Pointers <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/" target="_blank">Remove Duplicates from Sorted Array</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/move-zeroes/" target="_blank">Move Zeroes</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/valid-palindrome/" target="_blank">Valid Palindrome</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/reverse-string/" target="_blank">Reverse String</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/container-with-most-water/" target="_blank">Container With Most Water</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/squares-of-a-sorted-array/" target="_blank">Squares of a Sorted Array</a></li>
-</ul></details>
-
-<details><summary>Sliding Window <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/maximum-average-subarray-i/" target="_blank">Maximum Average Subarray I</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank">Longest Substring Without Repeating Characters</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/minimum-size-subarray-sum/" target="_blank">Minimum Size Subarray Sum</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/permutation-in-string/" target="_blank">Permutation in String</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/find-all-anagrams-in-a-string/" target="_blank">Find All Anagrams in a String</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/subarray-product-less-than-k/" target="_blank">Subarray Product Less Than K</a></li>
-</ul></details>
-
-<details><summary>String + Hashing <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/valid-anagram/" target="_blank">Valid Anagram</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/first-unique-character-in-a-string/" target="_blank">First Unique Character</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/group-anagrams/" target="_blank">Group Anagrams</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/ransom-note/" target="_blank">Ransom Note</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/isomorphic-strings/" target="_blank">Isomorphic Strings</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/longest-palindrome/" target="_blank">Longest Palindrome</a></li>
-</ul></details>
-
-<details><summary>Prefix / Misc <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/range-sum-query-immutable/" target="_blank">Range Sum Query – Immutable</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/product-of-array-except-self/" target="_blank">Product of Array Except Self</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/find-pivot-index/" target="_blank">Find Pivot Index</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/majority-element/" target="_blank">Majority Element</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/rotate-array/" target="_blank">Rotate Array</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/intersection-of-two-arrays/" target="_blank">Intersection of Two Arrays</a></li>
-</ul></details>
-</div>
-
-<!-- ================= WEEK 2 ================= -->
-<div class="week">
-<h2>Week 2 — Linked List, Stack & Hashing</h2>
-
-<details><summary>Linked List Basics <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/reverse-linked-list/" target="_blank">Reverse Linked List</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/middle-of-the-linked-list/" target="_blank">Middle of the Linked List</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank">Linked List Cycle</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/remove-linked-list-elements/" target="_blank">Remove Linked List Elements</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/palindrome-linked-list/" target="_blank">Palindrome Linked List</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank">Intersection of Two Linked Lists</a></li>
-</ul></details>
-
-<details><summary>Fast & Slow Pointer <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank">Remove Nth Node From End</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank">Detect Cycle II</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/happy-number/" target="_blank">Happy Number</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/find-the-duplicate-number/" target="_blank">Find Duplicate Number</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/reorder-list/" target="_blank">Reorder List</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/odd-even-linked-list/" target="_blank">Odd Even Linked List</a></li>
-</ul></details>
-
-<details><summary>Stack <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/valid-parentheses/" target="_blank">Valid Parentheses</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/min-stack/" target="_blank">Min Stack</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/next-greater-element-i/" target="_blank">Next Greater Element I</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/daily-temperatures/" target="_blank">Daily Temperatures</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/evaluate-reverse-polish-notation/" target="_blank">Evaluate RPN</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/backspace-string-compare/" target="_blank">Backspace String Compare</a></li>
-</ul></details>
-
-<details><summary>Hashing <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/top-k-frequent-elements/" target="_blank">Top K Frequent Elements</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/" target="_blank">Two Sum II</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/subarray-sum-equals-k/" target="_blank">Subarray Sum Equals K</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/longest-consecutive-sequence/" target="_blank">Longest Consecutive Sequence</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/contains-duplicate-ii/" target="_blank">Contains Duplicate II</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/word-pattern/" target="_blank">Word Pattern</a></li>
-</ul></details>
-</div>
-
-<!-- ================= WEEK 3 ================= -->
-<div class="week">
-<h2>Week 3 — Trees</h2>
-
-<details><summary>DFS Traversals <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/" target="_blank">Inorder Traversal</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-preorder-traversal/" target="_blank">Preorder Traversal</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-postorder-traversal/" target="_blank">Postorder Traversal</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-paths/" target="_blank">Binary Tree Paths</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/same-tree/" target="_blank">Same Tree</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/symmetric-tree/" target="_blank">Symmetric Tree</a></li>
-</ul></details>
-
-<details><summary>Height / Depth <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/" target="_blank">Maximum Depth</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/" target="_blank">Minimum Depth</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/balanced-binary-tree/" target="_blank">Balanced Binary Tree</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/diameter-of-binary-tree/" target="_blank">Diameter of Binary Tree</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/count-complete-tree-nodes/" target="_blank">Count Complete Tree Nodes</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/invert-binary-tree/" target="_blank">Invert Binary Tree</a></li>
-</ul></details>
-
-<details><summary>Path Based <span class="pattern">6 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/path-sum/" target="_blank">Path Sum</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/path-sum-ii/" target="_blank">Path Sum II</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/sum-root-to-leaf-numbers/" target="_blank">Sum Root to Leaf</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-tilt/" target="_blank">Binary Tree Tilt</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" target="_blank">LCA of BST</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank">LCA of Binary Tree</a></li>
-</ul></details>
-
-<details><summary>BFS <span class="pattern">5 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-level-order-traversal/" target="_blank">Level Order Traversal</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/average-of-levels-in-binary-tree/" target="_blank">Average of Levels</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-right-side-view/" target="_blank">Right Side View</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/" target="_blank">Minimum Depth</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/" target="_blank">Zigzag Level Order</a></li>
-</ul></details>
-</div>
-
-<!-- ================= WEEK 4 ================= -->
-<div class="week">
-<h2>Week 4 — Graphs & DP</h2>
-
-<details><summary>Graph BFS / DFS <span class="pattern">5 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/number-of-islands/" target="_blank">Number of Islands</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/flood-fill/" target="_blank">Flood Fill</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/max-area-of-island/" target="_blank">Max Area of Island</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/clone-graph/" target="_blank">Clone Graph</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/surrounded-regions/" target="_blank">Surrounded Regions</a></li>
-</ul></details>
-
-<details><summary>Graph Advanced <span class="pattern">4 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/course-schedule/" target="_blank">Course Schedule</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/course-schedule-ii/" target="_blank">Course Schedule II</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/find-if-path-exists-in-graph/" target="_blank">Path Exists in Graph</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/number-of-provinces/" target="_blank">Number of Provinces</a></li>
-</ul></details>
-
-<details><summary>DP 1D <span class="pattern">5 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank">Climbing Stairs</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/house-robber/" target="_blank">House Robber</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/house-robber-ii/" target="_blank">House Robber II</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/fibonacci-number/" target="_blank">Fibonacci Number</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/min-cost-climbing-stairs/" target="_blank">Min Cost Climbing Stairs</a></li>
-</ul></details>
-
-<details><summary>DP 2D <span class="pattern">5 problems</span></summary><ul>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/coin-change/" target="_blank">Coin Change</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/unique-paths/" target="_blank">Unique Paths</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/unique-paths-ii/" target="_blank">Unique Paths II</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/longest-increasing-subsequence/" target="_blank">Longest Increasing Subsequence</a></li>
-<li><input type="checkbox"><a href="https://leetcode.com/problems/partition-equal-subset-sum/" target="_blank">Partition Equal Subset Sum</a></li>
-</ul></details>
-</div>
-
+  <!-- Right Side: Persistent Sidebar -->
+  <aside class="sidebar">
+    <div class="calendar-card">
+      <div class="calendar-header">
+        <h3 id="calendarMonth">Month</h3>
+      </div>
+      <div class="calendar-grid">
+        <div class="calendar-weekday">S</div>
+        <div class="calendar-weekday">M</div>
+        <div class="calendar-weekday">T</div>
+        <div class="calendar-weekday">W</div>
+        <div class="calendar-weekday">T</div>
+        <div class="calendar-weekday">F</div>
+        <div class="calendar-weekday">S</div>
+      </div>
+      <div class="calendar-grid" id="calendarDays"></div>
+      
+      <div class="stat-box">
+        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Consistency</div>
+        <div style="font-size: 24px; font-weight: 800;">🔥 <span id="currentStreak">0</span> Days</div>
+      </div>
+    </div>
+  </aside>
 </div>
 
 <script>
-const boxes = document.querySelectorAll("input[type='checkbox']");
-const progressText = document.getElementById("progress");
+/**
+ * DYNAMIC DATABASE
+ */
+const DATABASE = {
+  "curriculum": [
+    {
+      "week": 1,
+      "title": "Arrays & Strings",
+      "categories": [
+        {
+          "name": "Array Basics",
+          "problems": [
+            { "title": "Two Sum", "url": "https://leetcode.com/problems/two-sum/" },
+            { "title": "Running Sum of 1d Array", "url": "https://leetcode.com/problems/running-sum-of-1d-array/" },
+            { "title": "Maximum Subarray", "url": "https://leetcode.com/problems/maximum-subarray/" },
+            { "title": "Best Time to Buy and Sell Stock", "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" },
+            { "title": "Contains Duplicate", "url": "https://leetcode.com/problems/contains-duplicate/" },
+            { "title": "Plus One", "url": "https://leetcode.com/problems/plus-one/" }
+          ]
+        },
+        {
+          "name": "Two Pointers",
+          "problems": [
+            { "title": "Remove Duplicates from Sorted Array", "url": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/" },
+            { "title": "Move Zeroes", "url": "https://leetcode.com/problems/move-zeroes/" },
+            { "title": "Valid Palindrome", "url": "https://leetcode.com/problems/valid-palindrome/" },
+            { "title": "Reverse String", "url": "https://leetcode.com/problems/reverse-string/" },
+            { "title": "Container With Most Water", "url": "https://leetcode.com/problems/container-with-most-water/" },
+            { "title": "Squares of a Sorted Array", "url": "https://leetcode.com/problems/squares-of-a-sorted-array/" }
+          ]
+        },
+        {
+          "name": "Sliding Window",
+          "problems": [
+            { "title": "Maximum Average Subarray I", "url": "https://leetcode.com/problems/maximum-average-subarray-i/" },
+            { "title": "Longest Substring Without Repeating Characters", "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/" },
+            { "title": "Minimum Size Subarray Sum", "url": "https://leetcode.com/problems/minimum-size-subarray-sum/" },
+            { "title": "Permutation in String", "url": "https://leetcode.com/problems/permutation-in-string/" },
+            { "title": "Find All Anagrams in a String", "url": "https://leetcode.com/problems/find-all-anagrams-in-a-string/" },
+            { "title": "Subarray Product Less Than K", "url": "https://leetcode.com/problems/subarray-product-less-than-k/" }
+          ]
+        },
+        {
+          "name": "String + Hashing",
+          "problems": [
+            { "title": "Valid Anagram", "url": "https://leetcode.com/problems/valid-anagram/" },
+            { "title": "First Unique Character", "url": "https://leetcode.com/problems/first-unique-character-in-a-string/" },
+            { "title": "Group Anagrams", "url": "https://leetcode.com/problems/group-anagrams/" },
+            { "title": "Ransom Note", "url": "https://leetcode.com/problems/ransom-note/" },
+            { "title": "Isomorphic Strings", "url": "https://leetcode.com/problems/isomorphic-strings/" },
+            { "title": "Longest Palindrome", "url": "https://leetcode.com/problems/longest-palindrome/" }
+          ]
+        },
+        {
+          "name": "Prefix / Misc",
+          "problems": [
+            { "title": "Range Sum Query – Immutable", "url": "https://leetcode.com/problems/range-sum-query-immutable/" },
+            { "title": "Product of Array Except Self", "url": "https://leetcode.com/problems/product-of-array-except-self/" },
+            { "title": "Find Pivot Index", "url": "https://leetcode.com/problems/find-pivot-index/" },
+            { "title": "Majority Element", "url": "https://leetcode.com/problems/majority-element/" },
+            { "title": "Rotate Array", "url": "https://leetcode.com/problems/rotate-array/" },
+            { "title": "Intersection of Two Arrays", "url": "https://leetcode.com/problems/intersection-of-two-arrays/" }
+          ]
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "title": "Linked List, Stack & Hashing",
+      "categories": [
+        {
+          "name": "Linked List Basics",
+          "problems": [
+            { "title": "Reverse Linked List", "url": "https://leetcode.com/problems/reverse-linked-list/" },
+            { "title": "Middle of the Linked List", "url": "https://leetcode.com/problems/middle-of-the-linked-list/" },
+            { "title": "Linked List Cycle", "url": "https://leetcode.com/problems/linked-list-cycle/" },
+            { "title": "Remove Linked List Elements", "url": "https://leetcode.com/problems/remove-linked-list-elements/" },
+            { "title": "Palindrome Linked List", "url": "https://leetcode.com/problems/palindrome-linked-list/" },
+            { "title": "Intersection of Two Linked Lists", "url": "https://leetcode.com/problems/intersection-of-two-linked-lists/" }
+          ]
+        },
+        {
+          "name": "Fast & Slow Pointer",
+          "problems": [
+            { "title": "Remove Nth Node From End", "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/" },
+            { "title": "Detect Cycle II", "url": "https://leetcode.com/problems/linked-list-cycle-ii/" },
+            { "title": "Happy Number", "url": "https://leetcode.com/problems/happy-number/" },
+            { "title": "Find Duplicate Number", "url": "https://leetcode.com/problems/find-the-duplicate-number/" },
+            { "title": "Reorder List", "url": "https://leetcode.com/problems/reorder-list/" },
+            { "title": "Odd Even Linked List", "url": "https://leetcode.com/problems/odd-even-linked-list/" }
+          ]
+        },
+        {
+          "name": "Stack",
+          "problems": [
+            { "title": "Valid Parentheses", "url": "https://leetcode.com/problems/valid-parentheses/" },
+            { "title": "Min Stack", "url": "https://leetcode.com/problems/min-stack/" },
+            { "title": "Next Greater Element I", "url": "https://leetcode.com/problems/next-greater-element-i/" },
+            { "title": "Daily Temperatures", "url": "https://leetcode.com/problems/daily-temperatures/" },
+            { "title": "Evaluate RPN", "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/" },
+            { "title": "Backspace String Compare", "url": "https://leetcode.com/problems/backspace-string-compare/" }
+          ]
+        },
+        {
+          "name": "Hashing",
+          "problems": [
+            { "title": "Top K Frequent Elements", "url": "https://leetcode.com/problems/top-k-frequent-elements/" },
+            { "title": "Two Sum II", "url": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/" },
+            { "title": "Subarray Sum Equals K", "url": "https://leetcode.com/problems/subarray-sum-equals-k/" },
+            { "title": "Longest Consecutive Sequence", "url": "https://leetcode.com/problems/longest-consecutive-sequence/" },
+            { "title": "Contains Duplicate II", "url": "https://leetcode.com/problems/contains-duplicate-ii/" },
+            { "title": "Word Pattern", "url": "https://leetcode.com/problems/word-pattern/" }
+          ]
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "title": "Trees",
+      "categories": [
+        {
+          "name": "DFS Traversals",
+          "problems": [
+            { "title": "Inorder Traversal", "url": "https://leetcode.com/problems/binary-tree-inorder-traversal/" },
+            { "title": "Preorder Traversal", "url": "https://leetcode.com/problems/binary-tree-preorder-traversal/" },
+            { "title": "Postorder Traversal", "url": "https://leetcode.com/problems/binary-tree-postorder-traversal/" },
+            { "title": "Binary Tree Paths", "url": "https://leetcode.com/problems/binary-tree-paths/" },
+            { "title": "Same Tree", "url": "https://leetcode.com/problems/same-tree/" },
+            { "title": "Symmetric Tree", "url": "https://leetcode.com/problems/symmetric-tree/" }
+          ]
+        },
+        {
+          "name": "Height / Depth",
+          "problems": [
+            { "title": "Maximum Depth", "url": "https://leetcode.com/problems/maximum-depth-of-binary-tree/" },
+            { "title": "Minimum Depth", "url": "https://leetcode.com/problems/minimum-depth-of-binary-tree/" },
+            { "title": "Balanced Binary Tree", "url": "https://leetcode.com/problems/balanced-binary-tree/" },
+            { "title": "Diameter of Binary Tree", "url": "https://leetcode.com/problems/diameter-of-binary-tree/" },
+            { "title": "Count Complete Tree Nodes", "url": "https://leetcode.com/problems/count-complete-tree-nodes/" },
+            { "title": "Invert Binary Tree", "url": "https://leetcode.com/problems/invert-binary-tree/" }
+          ]
+        },
+        {
+          "name": "Path Based",
+          "problems": [
+            { "title": "Path Sum", "url": "https://leetcode.com/problems/path-sum/" },
+            { "title": "Path Sum II", "url": "https://leetcode.com/problems/path-sum-ii/" },
+            { "title": "Sum Root to Leaf", "url": "https://leetcode.com/problems/sum-root-to-leaf-numbers/" },
+            { "title": "Binary Tree Tilt", "url": "https://leetcode.com/problems/binary-tree-tilt/" },
+            { "title": "LCA of BST", "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" },
+            { "title": "LCA of Binary Tree", "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/" }
+          ]
+        },
+        {
+          "name": "BFS",
+          "problems": [
+            { "title": "Level Order Traversal", "url": "https://leetcode.com/problems/binary-tree-level-order-traversal/" },
+            { "title": "Average of Levels", "url": "https://leetcode.com/problems/average-of-levels-in-binary-tree/" },
+            { "title": "Right Side View", "url": "https://leetcode.com/problems/binary-tree-right-side-view/" },
+            { "title": "Minimum Depth", "url": "https://leetcode.com/problems/minimum-depth-of-binary-tree/" },
+            { "title": "Zigzag Level Order", "url": "https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/" }
+          ]
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "title": "Graphs & DP",
+      "categories": [
+        {
+          "name": "Graph BFS / DFS",
+          "problems": [
+            { "title": "Number of Islands", "url": "https://leetcode.com/problems/number-of-islands/" },
+            { "title": "Flood Fill", "url": "https://leetcode.com/problems/flood-fill/" },
+            { "title": "Max Area of Island", "url": "https://leetcode.com/problems/max-area-of-island/" },
+            { "title": "Clone Graph", "url": "https://leetcode.com/problems/clone-graph/" },
+            { "title": "Surrounded Regions", "url": "https://leetcode.com/problems/surrounded-regions/" }
+          ]
+        },
+        {
+          "name": "Graph Advanced",
+          "problems": [
+            { "title": "Course Schedule", "url": "https://leetcode.com/problems/course-schedule/" },
+            { "title": "Course Schedule II", "url": "https://leetcode.com/problems/course-schedule-ii/" },
+            { "title": "Path Exists in Graph", "url": "https://leetcode.com/problems/find-if-path-exists-in-graph/" },
+            { "title": "Number of Provinces", "url": "https://leetcode.com/problems/number-of-provinces/" }
+          ]
+        },
+        {
+          "name": "DP 1D",
+          "problems": [
+            { "title": "Climbing Stairs", "url": "https://leetcode.com/problems/climbing-stairs/" },
+            { "title": "House Robber", "url": "https://leetcode.com/problems/house-robber/" },
+            { "title": "House Robber II", "url": "https://leetcode.com/problems/house-robber-ii/" },
+            { "title": "Fibonacci Number", "url": "https://leetcode.com/problems/fibonacci-number/" },
+            { "title": "Min Cost Climbing Stairs", "url": "https://leetcode.com/problems/min-cost-climbing-stairs/" }
+          ]
+        },
+        {
+          "name": "DP 2D",
+          "problems": [
+            { "title": "Coin Change", "url": "https://leetcode.com/problems/coin-change/" },
+            { "title": "Unique Paths", "url": "https://leetcode.com/problems/unique-paths/" },
+            { "title": "Unique Paths II", "url": "https://leetcode.com/problems/unique-paths-ii/" },
+            { "title": "Longest Increasing Subsequence", "url": "https://leetcode.com/problems/longest-increasing-subsequence/" },
+            { "title": "Partition Equal Subset Sum", "url": "https://leetcode.com/problems/partition-equal-subset-sum/" }
+          ]
+        }
+      ]
+    }
+  ]
+};
 
-function updateProgress() {
-  const checked = document.querySelectorAll("input:checked").length;
-  progressText.textContent = checked;
-  localStorage.setItem("dsa-progress", JSON.stringify([...boxes].map(b => b.checked)));
+// Selectors
+const curriculumContainer = document.getElementById("curriculum-container");
+const progressCountEl = document.getElementById("progress-count");
+const totalCountEl = document.getElementById("total-count");
+const progressBar = document.getElementById("progress-bar");
+
+/**
+ * Safe ID generator
+ */
+function generateProblemId(category, title) {
+  const str = `${category}-${title}`;
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash |= 0;
+  }
+  return 'pid_' + Math.abs(hash).toString(16);
 }
 
-boxes.forEach(b => b.addEventListener("change", updateProgress));
+/**
+ * App Init
+ */
+function initApp() {
+  let html = "";
+  let currentTotal = 0;
 
-const saved = JSON.parse(localStorage.getItem("dsa-progress") || "[]");
-boxes.forEach((b, i) => b.checked = saved[i]);
-updateProgress();
+  DATABASE.curriculum.forEach(week => {
+    html += `<div class="week">
+      <h2>Week ${week.week} — ${week.title}</h2>`;
+    
+    week.categories.forEach(cat => {
+      html += `<details>
+        <summary>${cat.name} <span class="pattern-count">${cat.problems.length}</span></summary>
+        <ul>`;
+      
+      cat.problems.forEach(prob => {
+        const uniqueId = generateProblemId(cat.name, prob.title);
+        currentTotal++;
+        
+        html += `<li>
+          <input type="checkbox" id="${uniqueId}" data-id="${uniqueId}">
+          <a href="${prob.url}" target="_blank">${prob.title}</a>
+        </li>`;
+      });
+      
+      html += `</ul></details>`;
+    });
+    
+    html += `</div>`;
+  });
+
+  curriculumContainer.innerHTML = html;
+  totalCountEl.textContent = currentTotal;
+
+  // Listeners
+  const boxes = document.querySelectorAll("input[type='checkbox']");
+  boxes.forEach(b => b.addEventListener("change", updateProgress));
+
+  // Load Saved Progress
+  const saved = JSON.parse(localStorage.getItem("dsa-mastery-v3") || "{}");
+  boxes.forEach(b => {
+    if (saved[b.dataset.id]) b.checked = true;
+  });
+
+  updateProgress();
+  renderCalendar();
+}
+
+/**
+ * Progress Tracking
+ */
+function updateProgress() {
+  const boxes = document.querySelectorAll("input[type='checkbox']");
+  const checked = Array.from(boxes).filter(b => b.checked).length;
+  const total = boxes.length;
+  
+  progressCountEl.textContent = checked;
+  progressBar.style.width = (total > 0 ? (checked / total * 100) : 0) + "%";
+  
+  const progressMap = {};
+  boxes.forEach(b => { if(b.checked) progressMap[b.dataset.id] = true; });
+  localStorage.setItem("dsa-mastery-v3", JSON.stringify(progressMap));
+  
+  if (checked > 0) {
+    const today = new Date().toISOString().split('T')[0];
+    const completedDates = JSON.parse(localStorage.getItem("dsa-dates-v3") || "{}");
+    completedDates[today] = true;
+    localStorage.setItem("dsa-dates-v3", JSON.stringify(completedDates));
+  }
+  
+  updateStreakStats();
+  renderCalendar();
+}
+
+function updateStreakStats() {
+  const log = JSON.parse(localStorage.getItem("dsa-dates-v3") || "{}");
+  let streak = 0;
+  let cursor = new Date();
+  
+  while (true) {
+    const key = cursor.toISOString().split('T')[0];
+    if (log[key]) {
+      streak++;
+      cursor.setDate(cursor.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+  document.getElementById("currentStreak").textContent = streak;
+}
+
+/**
+ * Calendar Logic
+ */
+function renderCalendar() {
+  const container = document.getElementById("calendarDays");
+  const now = new Date();
+  const month = now.getMonth();
+  const year = now.getFullYear();
+  
+  document.getElementById("calendarMonth").textContent = now.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const log = JSON.parse(localStorage.getItem("dsa-dates-v3") || "{}");
+
+  let html = '';
+  for (let i = 0; i < firstDay; i++) html += '<div class="calendar-day"></div>';
+  
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    let classes = 'calendar-day';
+    if (log[key]) classes += ' completed';
+    if (d === now.getDate()) classes += ' today';
+    html += `<div class="${classes}">${d}</div>`;
+  }
+  container.innerHTML = html;
+}
 
 function toggleDark() {
   document.body.classList.toggle("dark");
-  localStorage.setItem("dark", document.body.classList.contains("dark"));
+  localStorage.setItem("dsa-dark-v3", document.body.classList.contains("dark"));
 }
 
-if (localStorage.getItem("dark") === "true") {
-  document.body.classList.add("dark");
-}
+// Initial Theme Check
+if (localStorage.getItem("dsa-dark-v3") === "true") document.body.classList.add("dark");
+
+// Boot
+initApp();
 </script>
 
 </body>
