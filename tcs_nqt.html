@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCS NQT Coding Tracker</title>
+    <link rel="stylesheet" href="tcsnqt.css">
+</head>
+
+<body>
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="site-header">
+        <div class="header-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+            TCS NQT Preparation
+        </div>
+        <h1>Coding Sheet Tracker</h1>
+        <p class="header-sub">Track your TCS NQT coding practice · Click a problem to see details</p>
+    </header>
+
+    <!-- ═══ TWO-COLUMN SHELL ═══ -->
+    <div class="shell">
+
+        <!-- ── MAIN COLUMN ── -->
+        <div class="main-col">
+
+            <!-- ═══ PROGRESS ═══ -->
+            <div class="progress-wrap">
+                <div class="progress-header">
+                    <span class="progress-label">Overall Progress</span>
+                    <span class="progress-count" id="progressCount">0 / 0</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+                </div>
+            </div>
+
+            <!-- ═══ TOPICS ═══ -->
+            <div id="topics"></div>
+
+        </div><!-- /main-col -->
+
+        <!-- ── RIGHT PANEL ── -->
+        <aside class="right-panel" id="rightPanel">
+
+            <!-- Progress Widget -->
+            <div class="sw">
+                <div class="swt">📊 Progress</div>
+                <div class="sgrid">
+                    <div class="scard">
+                        <div class="snum" id="s-total" style="color:#ff3b5c">0</div>
+                        <div class="slbl">Total</div>
+                    </div>
+                    <div class="scard">
+                        <div class="snum" id="s-done" style="color:#3b82f6">0</div>
+                        <div class="slbl">Done</div>
+                    </div>
+                    <div class="scard">
+                        <div class="snum" id="s-pct" style="color:#f59e0b">0%</div>
+                        <div class="slbl">Complete</div>
+                    </div>
+                    <div class="scard">
+                        <div class="snum" id="s-rem" style="color:#a78bfa">0</div>
+                        <div class="slbl">Left</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clock Widget -->
+            <div class="sw">
+                <div class="swt">🕐 Live Clock</div>
+                <div class="clklayout">
+                    <canvas id="AC" width="66" height="66" style="border-radius:50%;flex-shrink:0;"></canvas>
+                    <div class="clkdig">
+                        <div class="clktime" id="CT">00:00</div>
+                        <div class="clksec" id="CS">00s</div>
+                        <div class="clkdate" id="CD">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Timer Widget -->
+            <div class="sw">
+                <div class="swt">⏱ Focus Timer</div>
+                <div class="tpre-row">
+                    <span class="tpre on" onclick="setPre(this,300)">5m</span>
+                    <span class="tpre" onclick="setPre(this,600)">10m</span>
+                    <span class="tpre" onclick="setPre(this,1500)">25m</span>
+                    <span class="tpre" onclick="setPre(this,2700)">45m</span>
+                    <span class="tpre" onclick="setPre(this,3600)">60m</span>
+                </div>
+                <div class="cstm"><input type="number" id="CM" placeholder="Min" min="1" max="999" /><button
+                        onclick="setCustom()">Set</button></div>
+                <div class="tprog">
+                    <div class="tbar" id="TB"></div>
+                </div>
+                <div class="tdisp" id="TD">05:00</div>
+                <div class="tbtns"><button class="tb go" id="TG" onclick="tSP()">▶ Start</button><button class="tb rst"
+                        onclick="tRst()">↺ Reset</button></div>
+            </div>
+
+            <!-- Calendar Widget -->
+            <div class="sw">
+                <div class="swt">📅 Study Calendar</div>
+                <div class="calnav">
+                    <button class="calnbtn" onclick="calN(-1)">‹</button>
+                    <div class="calnlbl" id="CL">—</div>
+                    <button class="calnbtn" onclick="calN(1)">›</button>
+                </div>
+                <div class="calgrid">
+                    <div class="calwd">Su</div>
+                    <div class="calwd">Mo</div>
+                    <div class="calwd">Tu</div>
+                    <div class="calwd">We</div>
+                    <div class="calwd">Th</div>
+                    <div class="calwd">Fr</div>
+                    <div class="calwd">Sa</div>
+                </div>
+                <div class="calgrid" id="CD2" style="margin-top:2px;"></div>
+                <div class="strk">
+                    <div class="strkn" id="SN">0</div>
+                    <div>
+                        <div style="font-size:14px">🔥</div>
+                        <div class="strklbl">Day streak</div>
+                    </div>
+                </div>
+            </div>
+
+        </aside><!-- /right-panel -->
+
+    </div><!-- /shell -->
+
+    <!-- ═══ MODAL ═══ -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <div class="modal-label" id="modalLabel">Problem Details</div>
+                    <div class="modal-title" id="modalTitle"></div>
+                </div>
+                <button class="modal-close" onclick="hideModal()" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tags">
+                    <span class="modal-topic-tag" id="modalTopic"></span>
+                    <span class="diff-badge" id="modalDiff"></span>
+                </div>
+                <div class="modal-desc" id="modalDesc"></div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-lc-btn" id="modalLCBtn" href="#" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a1.299 1.299 0 0 0 0 1.806 1.374 1.374 0 0 0 1.943 0l2.202-2.355 2.546 2.729a1.374 1.374 0 0 0 1.943 0 1.299 1.299 0 0 0 0-1.806l-2.546-2.729 3.534-3.784A1.299 1.299 0 0 0 13.483 0zM9.23 11.74a1.374 1.374 0 0 0-1.943 0 1.299 1.299 0 0 0 0 1.806l6.278 6.726a1.374 1.374 0 0 0 1.943 0 1.299 1.299 0 0 0 0-1.806L9.23 11.74z" />
+                    </svg>
+                    Solve on LeetCode
+                </a>
+                <button class="modal-close-btn" onclick="hideModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════ STATE ═══════════════════
+        let totalQ = 0;
+        const allQuestions = []; // stores {problem, topic, difficulty, description, leetcode}
+
+        // ═══════════════════ LOAD ═══════════════════
+        async function load() {
+            const res = await fetch("tcs_question.json");
+            const data = await res.json();
+            const container = document.getElementById("topics");
+
+            const topicIcons = {
+                "Array": "", "Numbers": "", "Number System": "",
+                "Sorting": "", "String": ""
+            };
+
+            let qid = 0;
+
+            for (const topic in data) {
+                const questions = data[topic];
+                const sectionStart = qid;
+
+                const section = document.createElement("div");
+                section.className = "topic";
+
+                // ── Header ──
+                const header = document.createElement("div");
+                header.className = "topic-header";
+                header.onclick = () => toggleSection(header);
+                header.innerHTML = `
+      <div class="topic-title-wrap">
+        <div class="topic-icon">${topicIcons[topic] || ""}</div>
+        <span class="topic-title">${topic}</span>
+      </div>
+      <div class="topic-meta">
+        <span class="q-count">${questions.length} problems</span>
+        <span class="topic-chevron">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </div>
+    `;
+
+                // ── Table ──
+                const tableWrap = document.createElement("div");
+                tableWrap.className = "table-wrap";
+
+                let tableHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Problem</th>
+            <th>Difficulty</th>
+            <th>LeetCode</th>
+            <th>Solved</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+                questions.forEach((q, i) => {
+                    const key = "q" + qid;
+                    const solved = localStorage.getItem(key) === "true";
+                    const diff = q.difficulty || "Easy";
+                    const diffCls = "diff-" + diff.toLowerCase();
+                    const idx = qid; // capture for closure
+
+                    // Store full data in global array for safe retrieval in modal
+                    allQuestions[idx] = { problem: q.problem, topic, difficulty: diff, description: q.description, leetcode: q.leetcode };
+
+                    tableHTML += `
+        <tr id="row-${idx}" class="${solved ? "solved" : ""}">
+          <td><span class="row-num">${idx + 1}</span></td>
+          <td>
+            <button class="problem-btn" onclick="showModal(${idx})">
+              ${q.problem}
+              <span class="pb-arrow">→</span>
+            </button>
+          </td>
+          <td><span class="diff-badge ${diffCls}">${diff}</span></td>
+          <td>
+            <a class="lc-link" href="${q.leetcode}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a1.299 1.299 0 0 0 0 1.806 1.374 1.374 0 0 0 1.943 0l2.202-2.355 2.546 2.729a1.374 1.374 0 0 0 1.943 0 1.299 1.299 0 0 0 0-1.806l-2.546-2.729 3.534-3.784A1.299 1.299 0 0 0 13.483 0zM9.23 11.74a1.374 1.374 0 0 0-1.943 0 1.299 1.299 0 0 0 0 1.806l6.278 6.726a1.374 1.374 0 0 0 1.943 0 1.299 1.299 0 0 0 0-1.806L9.23 11.74z"/></svg>
+              LeetCode
+            </a>
+          </td>
+          <td class="solved-cell">
+            <div class="check-wrap">
+              <input type="checkbox"
+                id="cb-${idx}"
+                ${solved ? "checked" : ""}
+                onchange="save(${idx})"
+                onclick="event.stopPropagation()">
+            </div>
+          </td>
+        </tr>
+      `;
+                    qid++;
+                });
+                tableHTML += `</tbody></table>`;
+                tableWrap.innerHTML = tableHTML;
+                section.appendChild(header);
+                section.appendChild(tableWrap);
+                container.appendChild(section);
+            }
+
+            totalQ = qid;
+            updateProgress();
+        }
+
+        // ═══════════════════ TOGGLE ═══════════════════
+        function toggleSection(header) {
+            const wrap = header.nextElementSibling;
+            const chevron = header.querySelector(".topic-chevron");
+            const isOpen = !wrap.classList.contains("collapsed");
+            wrap.classList.toggle("collapsed", isOpen);
+            chevron.classList.toggle("open", !isOpen);
+        }
+
+        // ═══════════════════ SAVE ═══════════════════
+        function save(id) {
+            const key = "q" + id;
+            const cur = localStorage.getItem(key) === "true";
+            localStorage.setItem(key, !cur);
+            const row = document.getElementById("row-" + id);
+            if (row) row.classList.toggle("solved", !cur);
+            updateProgress();
+        }
+
+        // ═══════════════════ PROGRESS ═══════════════════
+        function updateProgress() {
+            let solved = 0;
+            for (let i = 0; i < totalQ; i++) {
+                if (localStorage.getItem("q" + i) === "true") solved++;
+            }
+            const pct = totalQ > 0 ? (solved / totalQ) * 100 : 0;
+            document.getElementById("progressCount").textContent = `${solved} / ${totalQ}`;
+            document.getElementById("progressFill").style.width = pct + "%";
+        }
+
+        // ═══════════════════ MODAL ═══════════════════
+        function showModal(idx) {
+            const q = allQuestions[idx];
+            if (!q) return;
+
+            const overlay = document.getElementById("modalOverlay");
+            const diffCls = "diff-" + (q.difficulty || "easy").toLowerCase();
+
+            document.getElementById("modalTitle").textContent = q.problem;
+            document.getElementById("modalTopic").textContent = q.topic;
+
+            const diffEl = document.getElementById("modalDiff");
+            diffEl.textContent = q.difficulty || "Easy";
+            diffEl.className = "diff-badge " + diffCls;
+
+            // Render markdown-like bold text and line breaks
+            const descEl = document.getElementById("modalDesc");
+            descEl.innerHTML = (q.description || "No description available.")
+                .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+                .replace(/\n/g, "<br>");
+
+            const lcBtn = document.getElementById("modalLCBtn");
+            lcBtn.href = q.leetcode || "#";
+
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        function hideModal() {
+            document.getElementById("modalOverlay").classList.remove("active");
+            document.body.style.overflow = "";
+        }
+
+        function closeModal(e) {
+            if (e.target === document.getElementById("modalOverlay")) hideModal();
+        }
+
+        // Close on Escape
+        document.addEventListener("keydown", e => { if (e.key === "Escape") hideModal(); });
+
+        // ═══════════════════ INIT ═══════════════════
+        load();
+
+        // ═══════════════════ CLOCK ═══════════════════
+        function drawClock() {
+            const cv = document.getElementById('AC'); if (!cv) return;
+            const ctx = cv.getContext('2d'), R = 31, cx = 33, cy = 33;
+            const now = new Date(), hr = now.getHours() % 12, mn = now.getMinutes(), sc = now.getSeconds();
+            ctx.clearRect(0, 0, 66, 66);
+            ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+            ctx.fillStyle = '#1e2029'; ctx.fill();
+            ctx.strokeStyle = 'rgba(255,255,255,.09)'; ctx.lineWidth = 1.5; ctx.stroke();
+            for (let i = 0; i < 60; i++) {
+                const a = (i / 60) * Math.PI * 2 - Math.PI / 2, maj = i % 5 === 0, len = maj ? 5 : 2.5;
+                ctx.beginPath();
+                ctx.moveTo(cx + Math.cos(a) * (R - len), cy + Math.sin(a) * (R - len));
+                ctx.lineTo(cx + Math.cos(a) * (R - 1), cy + Math.sin(a) * (R - 1));
+                ctx.strokeStyle = maj ? 'rgba(255,255,255,.35)' : 'rgba(255,255,255,.09)';
+                ctx.lineWidth = maj ? 1.5 : .8; ctx.stroke();
+            }
+            const hA = ((hr + mn / 60) / 12) * Math.PI * 2 - Math.PI / 2;
+            ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(hA) * 17, cy + Math.sin(hA) * 17);
+            ctx.strokeStyle = '#e8eaf0'; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.stroke();
+            const mA = ((mn + sc / 60) / 60) * Math.PI * 2 - Math.PI / 2;
+            ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(mA) * 24, cy + Math.sin(mA) * 24);
+            ctx.strokeStyle = '#e8eaf0'; ctx.lineWidth = 1.5; ctx.lineCap = 'round'; ctx.stroke();
+            const sA = (sc / 60) * Math.PI * 2 - Math.PI / 2;
+            ctx.beginPath();
+            ctx.moveTo(cx - Math.cos(sA) * 5, cy - Math.sin(sA) * 5);
+            ctx.lineTo(cx + Math.cos(sA) * 27, cy + Math.sin(sA) * 27);
+            ctx.strokeStyle = '#ff3b5c'; ctx.lineWidth = 1; ctx.lineCap = 'round'; ctx.stroke();
+            ctx.beginPath(); ctx.arc(cx, cy, 2, 0, Math.PI * 2); ctx.fillStyle = '#ff3b5c'; ctx.fill();
+        }
+        function updDig() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0'), m = String(now.getMinutes()).padStart(2, '0'), s = String(now.getSeconds()).padStart(2, '0');
+            const ct = document.getElementById('CT'); if (ct) ct.textContent = `${h}:${m}`;
+            const cs = document.getElementById('CS'); if (cs) cs.textContent = `${s}s`;
+            const cd = document.getElementById('CD'); if (cd) cd.textContent = now.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
+        }
+        setInterval(() => { drawClock(); updDig(); }, 1000);
+        drawClock(); updDig();
+
+        // ═══════════════════ CALENDAR ═══════════════════
+        const DK = 'nqt-dates-v1';
+        let calV = new Date();
+        function calN(d) { calV = new Date(calV.getFullYear(), calV.getMonth() + d, 1); renderCal(); }
+        function renderCal() {
+            const y = calV.getFullYear(), m = calV.getMonth();
+            const now = new Date(), isCur = now.getFullYear() === y && now.getMonth() === m;
+            const cl = document.getElementById('CL'); if (cl) cl.textContent = calV.toLocaleString('default', { month: 'long', year: 'numeric' });
+            const fd = new Date(y, m, 1).getDay(), days = new Date(y, m + 1, 0).getDate();
+            const log = JSON.parse(localStorage.getItem(DK) || '{}');
+            let h = '';
+            for (let i = 0; i < fd; i++)h += '<div class="calday"></div>';
+            for (let d = 1; d <= days; d++) {
+                const k = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                let cls = 'calday'; if (log[k]) cls += ' done'; if (isCur && d === now.getDate()) cls += ' today';
+                h += `<div class="${cls}">${d}</div>`;
+            }
+            const cd2 = document.getElementById('CD2'); if (cd2) cd2.innerHTML = h;
+        }
+        function updStreak() {
+            const log = JSON.parse(localStorage.getItem(DK) || '{}');
+            let s = 0; const c = new Date();
+            while (log[c.toISOString().split('T')[0]]) { s++; c.setDate(c.getDate() - 1); }
+            const sn = document.getElementById('SN'); if (sn) sn.textContent = s;
+        }
+        function markToday() {
+            const t = new Date().toISOString().split('T')[0];
+            const d = JSON.parse(localStorage.getItem(DK) || '{}');
+            if (!d[t]) { d[t] = true; localStorage.setItem(DK, JSON.stringify(d)); }
+            renderCal(); updStreak();
+        }
+        renderCal(); updStreak();
+
+        // ═══════════════════ FOCUS TIMER ═══════════════════
+        let tTot = 300, tLeft = 300, tRun = false, tIv = null;
+        function setPre(el, sec) {
+            if (tRun) return;
+            document.querySelectorAll('.tpre').forEach(e => e.classList.remove('on'));
+            el.classList.add('on');
+            tTot = sec; tLeft = sec;
+            const cm = document.getElementById('CM'); if (cm) cm.value = '';
+            updTDisp();
+        }
+        function setCustom() {
+            if (tRun) return;
+            const v = parseInt(document.getElementById('CM')?.value);
+            if (!v || v < 1) return;
+            document.querySelectorAll('.tpre').forEach(e => e.classList.remove('on'));
+            tTot = v * 60; tLeft = v * 60; updTDisp();
+        }
+        function tSP() {
+            if (tLeft <= 0) return;
+            const tg = document.getElementById('TG'), td = document.getElementById('TD');
+            if (tRun) {
+                clearInterval(tIv); tRun = false;
+                if (tg) { tg.textContent = '▶ Resume'; tg.className = 'tb go'; }
+                if (td) td.className = 'tdisp pau';
+            } else {
+                tRun = true;
+                if (tg) { tg.textContent = '⏸ Pause'; tg.className = 'tb pau'; }
+                if (td) td.className = 'tdisp run';
+                tIv = setInterval(() => {
+                    tLeft--; updTDisp();
+                    if (tLeft <= 0) {
+                        clearInterval(tIv); tRun = false;
+                        if (td) td.className = 'tdisp fin';
+                        if (tg) { tg.textContent = '✓ Done'; tg.className = 'tb rst'; }
+                        markToday();
+                    }
+                }, 1000);
+            }
+        }
+        function tRst() {
+            clearInterval(tIv); tRun = false; tLeft = tTot; updTDisp();
+            const tg = document.getElementById('TG'), td = document.getElementById('TD');
+            if (tg) { tg.textContent = '▶ Start'; tg.className = 'tb go'; }
+            if (td) td.className = 'tdisp';
+        }
+        function updTDisp() {
+            const m = String(Math.floor(tLeft / 60)).padStart(2, '0'), s = String(tLeft % 60).padStart(2, '0');
+            const td = document.getElementById('TD'); if (td) td.textContent = `${m}:${s}`;
+            const pct = tTot > 0 ? (tLeft / tTot) * 100 : 0;
+            const tb = document.getElementById('TB');
+            if (tb) { tb.style.width = pct + '%'; tb.style.background = pct > 50 ? '#ff3b5c' : pct > 20 ? '#f59e0b' : '#f87171'; }
+        }
+        updTDisp();
+
+        // ═══════════════════ RIGHT PANEL STATS ═══════════════════
+        // Hook into updateProgress to also update the right panel stats
+        const _origUpdateProgress = updateProgress;
+        updateProgress = function () {
+            _origUpdateProgress();
+            const st = document.getElementById('s-total'), sd = document.getElementById('s-done'), sp = document.getElementById('s-pct'), sr = document.getElementById('s-rem');
+            let solved = 0;
+            for (let i = 0; i < totalQ; i++) { if (localStorage.getItem('q' + i) === 'true') solved++; }
+            const pct = totalQ > 0 ? Math.round(solved / totalQ * 100) : 0;
+            if (st) st.textContent = totalQ;
+            if (sd) sd.textContent = solved;
+            if (sp) sp.textContent = pct + '%';
+            if (sr) sr.textContent = totalQ - solved;
+        };
+    </script>
+
+</body>
+
+</html>

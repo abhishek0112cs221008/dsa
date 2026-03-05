@@ -1,0 +1,612 @@
+{
+    "Array": [
+        {
+            "problem": "Find the smallest number in an array",
+            "leetcode": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+            "difficulty": "Easy",
+            "description": "Find the smallest element in a given array by iterating through it and tracking the minimum.\n\n**Approach:** Linear scan — O(n) time, O(1) space.\n\n**Example:**\nInput: [5, 3, 1, 4, 2] → Output: 1"
+        },
+        {
+            "problem": "Find the largest number in an array",
+            "leetcode": "https://leetcode.com/problems/find-the-maximum-achievable-number/",
+            "difficulty": "Easy",
+            "description": "Find the largest element in a given array by iterating and tracking the maximum.\n\n**Approach:** Linear scan — O(n) time, O(1) space.\n\n**Example:**\nInput: [5, 3, 9, 4, 2] → Output: 9"
+        },
+        {
+            "problem": "Second Smallest and Second Largest element in an array",
+            "leetcode": "https://leetcode.com/problems/second-minimum-element-in-a-graph/",
+            "difficulty": "Easy",
+            "description": "Find the second smallest and second largest distinct elements in an array. Sort and pick the second distinct value from each end.\n\n**Approach:** Sort and pick — O(n log n) time.\n\n**Example:**\nInput: [12, 35, 1, 10, 34, 1] → Second Smallest: 10, Second Largest: 34"
+        },
+        {
+            "problem": "Reverse a given array",
+            "leetcode": "https://leetcode.com/problems/reverse-string/",
+            "difficulty": "Easy",
+            "description": "Reverse the elements of a given array in place using two pointers.\n\n**Approach:** Two pointers — O(n) time, O(1) space.\n\n**Example:**\nInput: [1, 2, 3, 4, 5] → Output: [5, 4, 3, 2, 1]"
+        },
+        {
+            "problem": "Count frequency of each element in an array",
+            "leetcode": "https://leetcode.com/problems/top-k-frequent-elements/",
+            "difficulty": "Easy",
+            "description": "Count how many times each element appears in the array using a hash map.\n\n**Approach:** HashMap frequency count — O(n) time, O(n) space.\n\n**Example:**\nInput: [1, 2, 2, 3, 3, 3] → {1:1, 2:2, 3:3}"
+        },
+        {
+            "problem": "Rearrange array in increasing-decreasing order",
+            "leetcode": "https://leetcode.com/problems/sort-array-by-parity/",
+            "difficulty": "Easy",
+            "description": "Sort the first half of the array in ascending order and the second half in descending order.\n\n**Approach:** Sort then split — O(n log n) time.\n\n**Example:**\nInput: [5, 2, 8, 1, 9] → [1, 2, 9, 8, 5]"
+        },
+        {
+            "problem": "Calculate sum of the elements of the array",
+            "leetcode": "https://leetcode.com/problems/running-sum-of-1d-array/",
+            "difficulty": "Easy",
+            "description": "Sum all elements in the array using a single linear pass.\n\n**Approach:** Linear sum — O(n) time, O(1) space.\n\n**Example:**\nInput: [1, 2, 3, 4, 5] → Sum: 15"
+        },
+        {
+            "problem": "Rotate array by K elements - Block Swap Algorithm",
+            "leetcode": "https://leetcode.com/problems/rotate-array/",
+            "difficulty": "Medium",
+            "description": "Rotate an array to the right by K steps. The block swap / triple-reverse trick is the most efficient method.\n\n**Approach:** Triple reverse — O(n) time, O(1) space.\n\n**Example:**\nInput: [1,2,3,4,5,6,7], K=3 → Output: [5,6,7,1,2,3,4]"
+        },
+        {
+            "problem": "Average of all elements in an array",
+            "leetcode": "https://leetcode.com/problems/average-salary-excluding-the-minimum-and-maximum-salary/",
+            "difficulty": "Easy",
+            "description": "Compute the average by summing all elements and dividing by the count.\n\n**Approach:** Sum / count — O(n) time, O(1) space.\n\n**Example:**\nInput: [10, 20, 30, 40] → Average: 25.0"
+        },
+        {
+            "problem": "Find the median of the given array",
+            "leetcode": "https://leetcode.com/problems/find-median-from-data-stream/",
+            "difficulty": "Medium",
+            "description": "The median is the middle value when the array is sorted. For even-length arrays, average the two middle values.\n\n**Approach:** Sort then index — O(n log n) time.\n\n**Example:**\nInput: [3, 1, 4, 1, 5] → Sorted: [1,1,3,4,5] → Median: 3"
+        },
+        {
+            "problem": "Remove duplicates from a sorted array",
+            "leetcode": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
+            "difficulty": "Easy",
+            "description": "Since the array is sorted, use two pointers: one slow pointer tracks the last unique position, one fast pointer scans forward.\n\n**Approach:** Two pointers — O(n) time, O(1) space.\n\n**Example:**\nInput: [1,1,2,3,3] → Output: [1,2,3], length=3"
+        },
+        {
+            "problem": "Remove duplicates from unsorted array",
+            "leetcode": "https://leetcode.com/problems/contains-duplicate/",
+            "difficulty": "Easy",
+            "description": "Use a HashSet to track seen elements and build a result with only first occurrences.\n\n**Approach:** HashSet — O(n) time, O(n) space.\n\n**Example:**\nInput: [4, 3, 2, 7, 8, 2, 3, 1] → Output: [4,3,2,7,8,1]"
+        },
+        {
+            "problem": "Adding Element in an array",
+            "leetcode": "https://leetcode.com/problems/append-k-integers-with-minimal-sum/",
+            "difficulty": "Easy",
+            "description": "Insert an element at a given position in an array by shifting elements to the right.\n\n**Approach:** Shift and insert — O(n) time.\n\n**Example:**\nInput: [1,2,4,5], pos=2, val=3 → Output: [1,2,3,4,5]"
+        },
+        {
+            "problem": "Find all repeating elements in an array",
+            "leetcode": "https://leetcode.com/problems/find-all-duplicates-in-an-array/",
+            "difficulty": "Medium",
+            "description": "Find all elements that appear more than once. Use a frequency map or index-marking trick.\n\n**Approach:** HashMap or index marking — O(n) time.\n\n**Example:**\nInput: [4,3,2,7,8,2,3,1] → Output: [2, 3]"
+        },
+        {
+            "problem": "Find all non-repeating elements in an array",
+            "leetcode": "https://leetcode.com/problems/single-number/",
+            "difficulty": "Easy",
+            "description": "Find elements that appear exactly once. Use a frequency map and filter for count=1.\n\n**Approach:** HashMap — O(n) time, O(n) space.\n\n**Example:**\nInput: [1,2,1,3,2] → Output: [3]"
+        },
+        {
+            "problem": "Find all symmetric pairs in array",
+            "leetcode": "https://leetcode.com/problems/find-all-pairs-with-a-given-difference/",
+            "difficulty": "Medium",
+            "description": "Two pairs (a,b) and (b,a) are symmetric. Store first elements of pairs in a map and check for symmetric match.\n\n**Approach:** HashMap — O(n) time.\n\n**Example:**\nInput: {(1,2),(3,4),(5,9),(2,1),(4,3)} → Symmetric: (1,2) and (3,4)"
+        },
+        {
+            "problem": "Maximum product subarray in an array",
+            "leetcode": "https://leetcode.com/problems/maximum-product-subarray/",
+            "difficulty": "Medium",
+            "description": "Find the contiguous subarray with the largest product. Track both max and min products because negatives can flip signs.\n\n**Approach:** Dynamic programming — O(n) time, O(1) space.\n\n**Example:**\nInput: [2,3,-2,4] → Output: 6 (subarray [2,3])"
+        },
+        {
+            "problem": "Replace each element of the array by its rank in the array",
+            "leetcode": "https://leetcode.com/problems/rank-transform-of-an-array/",
+            "difficulty": "Easy",
+            "description": "Assign each element its rank based on sorted order (smallest=1). Duplicate values get the same rank.\n\n**Approach:** Sort + HashMap — O(n log n) time.\n\n**Example:**\nInput: [40, 10, 20, 30] → Output: [4, 1, 2, 3]"
+        },
+        {
+            "problem": "Sorting elements of an array by frequency",
+            "leetcode": "https://leetcode.com/problems/sort-array-by-increasing-frequency/",
+            "difficulty": "Medium",
+            "description": "Sort elements so those with higher frequency appear first. Use a frequency map, then sort by frequency descending.\n\n**Approach:** HashMap + custom sort — O(n log n).\n\n**Example:**\nInput: [1,1,2,3,3,3] → Output: [3,3,3,1,1,2]"
+        },
+        {
+            "problem": "Rotation of elements of array- left and right",
+            "leetcode": "https://leetcode.com/problems/rotate-array/",
+            "difficulty": "Easy",
+            "description": "For left rotation by d: move the first d elements to the end. For right rotation by d: move last d to the front. Triple-reverse trick works for both.\n\n**Approach:** Triple reverse — O(n) time, O(1) space.\n\n**Example:**\nLeft by 2: [1,2,3,4,5] → [3,4,5,1,2]"
+        },
+        {
+            "problem": "Finding equilibrium index of an array",
+            "leetcode": "https://leetcode.com/problems/find-pivot-index/",
+            "difficulty": "Easy",
+            "description": "An equilibrium index is where the sum of elements to its left equals the sum to its right. Use prefix sums.\n\n**Approach:** Prefix sum — O(n) time, O(1) space.\n\n**Example:**\nInput: [-7,1,5,2,-4,3,0] → Index 3 (sum left=−1, sum right=−1)"
+        },
+        {
+            "problem": "Finding Circular rotation of an array by K positions",
+            "leetcode": "https://leetcode.com/problems/rotate-array/",
+            "difficulty": "Easy",
+            "description": "Circularly rotate the array by K positions. Use modulo to handle cases where K > n.\n\n**Approach:** Triple reverse with K % n — O(n) time.\n\n**Example:**\nInput: [1,2,3,4,5], K=2 → Output: [4,5,1,2,3]"
+        },
+        {
+            "problem": "Sort an array according to the order defined by another array",
+            "leetcode": "https://leetcode.com/problems/sort-array-by-parity/",
+            "difficulty": "Medium",
+            "description": "Given two arrays, sort the first array according to the order of elements in the second array. Elements not in the second array are placed at the end in sorted order.\n\n**Approach:** HashMap priority + custom sort — O(n log n).\n\n**Example:**\nA=[2,1,2,5,7,1,9,3], B=[2,1,8,3] → [2,2,1,1,3,5,7,9]"
+        },
+        {
+            "problem": "Search an element in an array",
+            "leetcode": "https://leetcode.com/problems/binary-search/",
+            "difficulty": "Easy",
+            "description": "Search for a target element. For unsorted arrays use linear search; for sorted arrays use binary search for O(log n).\n\n**Approach:** Binary search — O(log n) time.\n\n**Example:**\nInput: [1,3,5,7,9], target=5 → Index: 2"
+        },
+        {
+            "problem": "Check if Array is a subset of another array or not",
+            "leetcode": "https://leetcode.com/problems/check-if-array-is-subset-of-another-array/",
+            "difficulty": "Easy",
+            "description": "Check whether all elements of array A exist in array B. Use a HashSet built from B for O(1) lookups.\n\n**Approach:** HashSet — O(n + m) time.\n\n**Example:**\nA=[1,2,3], B=[1,2,3,4,5] → true\nA=[1,6], B=[1,2,3] → false"
+        }
+    ],
+    "Numbers": [
+        {
+            "problem": "Check if a number is palindrome or not",
+            "leetcode": "https://leetcode.com/problems/palindrome-number/",
+            "difficulty": "Easy",
+            "description": "A number is a palindrome if it reads the same forward and backward. Reverse the number and compare.\n\n**Approach:** Number reversal — O(log n) time.\n\n**Example:**\nInput: 121 → true | Input: -121 → false"
+        },
+        {
+            "problem": "Find all Palindrome numbers in a given range",
+            "leetcode": "https://leetcode.com/problems/palindrome-number/",
+            "difficulty": "Easy",
+            "description": "Iterate through the range [L, R] and check each number if it is a palindrome by comparing it with its reverse.\n\n**Approach:** Check each number — O(n × log n) total.\n\n**Example:**\nRange: [1,20] → Palindromes: 1,2,3,4,5,6,7,8,9,11"
+        },
+        {
+            "problem": "Check if a number is prime or not",
+            "leetcode": "https://leetcode.com/problems/count-primes/",
+            "difficulty": "Easy",
+            "description": "Check divisibility from 2 up to √n. If any divisor is found, it's not prime.\n\n**Approach:** Trial division — O(√n) time.\n\n**Example:**\nInput: 7 → Prime | Input: 10 → Not Prime"
+        },
+        {
+            "problem": "Prime numbers in a given range",
+            "leetcode": "https://leetcode.com/problems/count-primes/",
+            "difficulty": "Medium",
+            "description": "Find all prime numbers in range [L, R] using the Sieve of Eratosthenes for efficiency.\n\n**Approach:** Sieve of Eratosthenes — O(n log log n) time.\n\n**Example:**\nRange: [1,20] → Primes: 2,3,5,7,11,13,17,19"
+        },
+        {
+            "problem": "Check if a number is armstrong number or not",
+            "leetcode": "https://leetcode.com/problems/armstrong-number/",
+            "difficulty": "Easy",
+            "description": "An Armstrong number equals the sum of its own digits each raised to the power of the number of digits.\n\n**Approach:** Digit extraction and power sum — O(d).\n\n**Example:**\nInput: 153 → 1³+5³+3³=153 → Armstrong!"
+        },
+        {
+            "problem": "Check if a number is perfect number",
+            "leetcode": "https://leetcode.com/problems/perfect-number/",
+            "difficulty": "Easy",
+            "description": "A perfect number equals the sum of its positive proper divisors (excluding itself).\n\n**Approach:** Find divisors up to √n — O(√n) time.\n\n**Example:**\nInput: 28 → Divisors: 1,2,4,7,14 → Sum=28 → Perfect!"
+        },
+        {
+            "problem": "Even or Odd",
+            "leetcode": "https://leetcode.com/problems/number-of-even-and-odd-bits/",
+            "difficulty": "Easy",
+            "description": "A number is even if divisible by 2 (last bit = 0), odd otherwise. Use modulo or bitwise AND.\n\n**Approach:** n % 2 or n & 1 — O(1).\n\n**Example:**\nInput: 4 → Even | Input: 7 → Odd"
+        },
+        {
+            "problem": "Check whether a given number is positive or negative",
+            "leetcode": "https://leetcode.com/problems/sign-of-the-product-of-an-array/",
+            "difficulty": "Easy",
+            "description": "Check the sign of a number: positive if > 0, negative if < 0, zero otherwise.\n\n**Approach:** Simple comparison — O(1).\n\n**Example:**\nInput: -5 → Negative | Input: 8 → Positive | Input: 0 → Zero"
+        },
+        {
+            "problem": "Sum of first N natural numbers",
+            "leetcode": "https://leetcode.com/problems/sum-of-all-odd-length-subarrays/",
+            "difficulty": "Easy",
+            "description": "Sum of first N natural numbers = N*(N+1)/2. No need to loop!\n\n**Approach:** Formula — O(1).\n\n**Example:**\nN=5 → 1+2+3+4+5 = 15"
+        },
+        {
+            "problem": "Find Sum of AP Series",
+            "leetcode": "https://leetcode.com/problems/arithmetic-subarrays/",
+            "difficulty": "Easy",
+            "description": "Sum of an Arithmetic Progression: S = n/2 × (2a + (n-1)d) where a=first term, d=common difference, n=count.\n\n**Approach:** Formula — O(1).\n\n**Example:**\na=1, d=2, n=5 → S = 5/2×(2+8) = 25"
+        },
+        {
+            "problem": "Program to find sum of GP Series",
+            "leetcode": "https://leetcode.com/problems/sum-of-all-odd-length-subarrays/",
+            "difficulty": "Easy",
+            "description": "Sum of a Geometric Progression: S = a(rⁿ - 1)/(r - 1) for r≠1. Use the formula for efficiency.\n\n**Approach:** Formula — O(1).\n\n**Example:**\na=2, r=3, n=4 → S = 2(81-1)/2 = 80"
+        },
+        {
+            "problem": "Greatest of two numbers",
+            "leetcode": "https://leetcode.com/problems/largest-number/",
+            "difficulty": "Easy",
+            "description": "Compare two numbers and return the greater one using a simple if-else or ternary operator.\n\n**Approach:** Comparison — O(1).\n\n**Example:**\nInput: 10, 20 → Greatest: 20"
+        },
+        {
+            "problem": "Greatest of three numbers",
+            "leetcode": "https://leetcode.com/problems/largest-number/",
+            "difficulty": "Easy",
+            "description": "Compare three numbers using nested if-else or Math.max() to find the greatest.\n\n**Approach:** Comparison — O(1).\n\n**Example:**\nInput: 10, 35, 20 → Greatest: 35"
+        },
+        {
+            "problem": "Leap Year or not",
+            "leetcode": "https://leetcode.com/problems/is-subsequence/",
+            "difficulty": "Easy",
+            "description": "A year is a leap year if: divisible by 4, EXCEPT centuries unless divisible by 400.\n\n**Approach:** Modulo checks — O(1).\n\n**Example:**\n2000 → Leap | 1900 → Not Leap | 2024 → Leap"
+        },
+        {
+            "problem": "Reverse digits of a number",
+            "leetcode": "https://leetcode.com/problems/reverse-integer/",
+            "difficulty": "Medium",
+            "description": "Reverse the digits of an integer using modulo and division. Handle overflow for 32-bit integers.\n\n**Approach:** Modulo-based reversal — O(log n).\n\n**Example:**\nInput: 123 → Output: 321 | Input: -123 → Output: -321"
+        },
+        {
+            "problem": "Maximum and Minimum digit in a number",
+            "leetcode": "https://leetcode.com/problems/largest-digit-in-number/",
+            "difficulty": "Easy",
+            "description": "Extract each digit using modulo 10 and track both the maximum and minimum digits seen.\n\n**Approach:** Digit extraction — O(d) where d = number of digits.\n\n**Example:**\nInput: 38521 → Max: 8, Min: 1"
+        },
+        {
+            "problem": "Print Fibonacci upto Nth Term",
+            "leetcode": "https://leetcode.com/problems/fibonacci-number/",
+            "difficulty": "Easy",
+            "description": "Print the Fibonacci series up to the Nth term. Each term is the sum of the two preceding terms.\n\n**Approach:** Iterative — O(n) time, O(1) space.\n\n**Example:**\nN=7 → 0, 1, 1, 2, 3, 5, 8"
+        },
+        {
+            "problem": "Factorial of a number",
+            "leetcode": "https://leetcode.com/problems/factorial-trailing-zeroes/",
+            "difficulty": "Easy",
+            "description": "Factorial: n! = n × (n-1) × ... × 1. Use iteration or recursion. For large n, track big integers.\n\n**Approach:** Iterative — O(n) time.\n\n**Example:**\nInput: 5 → 5! = 120"
+        },
+        {
+            "problem": "Power of a number",
+            "leetcode": "https://leetcode.com/problems/powx-n/",
+            "difficulty": "Medium",
+            "description": "Compute xⁿ efficiently using fast exponentiation (binary exponentiation), which halves the problem at each step.\n\n**Approach:** Binary exponentiation — O(log n) time.\n\n**Example:**\nInput: x=2, n=10 → Output: 1024"
+        },
+        {
+            "problem": "Factors of a given number",
+            "leetcode": "https://leetcode.com/problems/count-the-number-of-ideal-arrays/",
+            "difficulty": "Easy",
+            "description": "Find all factors of N by iterating from 1 to √N. For every i that divides N, both i and N/i are factors.\n\n**Approach:** Loop up to √N — O(√n) time.\n\n**Example:**\nInput: 12 → Factors: 1, 2, 3, 4, 6, 12"
+        },
+        {
+            "problem": "Print all prime factors of the given number",
+            "leetcode": "https://leetcode.com/problems/smallest-value-after-replacing-with-sum-of-prime-factors/",
+            "difficulty": "Medium",
+            "description": "Divide by small primes starting from 2, printing each prime factor found until the remaining quotient equals 1.\n\n**Approach:** Trial division — O(√n) time.\n\n**Example:**\nInput: 12 → Prime factors: 2, 2, 3"
+        },
+        {
+            "problem": "Check if a number is a strong number or not",
+            "leetcode": "https://leetcode.com/problems/self-dividing-numbers/",
+            "difficulty": "Easy",
+            "description": "A strong number is one where the sum of the factorials of its digits equals the number itself.\n\n**Approach:** Digit factorials sum — O(d) time.\n\n**Example:**\nInput: 145 → 1!+4!+5! = 1+24+120 = 145 → Strong!"
+        },
+        {
+            "problem": "Check if a Number is Automorphic",
+            "leetcode": "https://leetcode.com/problems/self-dividing-numbers/",
+            "difficulty": "Easy",
+            "description": "An automorphic number is one whose square ends with the number itself.\n\n**Approach:** Square and check suffix — O(d).\n\n**Example:**\nInput: 25 → 25² = 625, ends with 25 → Automorphic!"
+        },
+        {
+            "problem": "GCD of two numbers",
+            "leetcode": "https://leetcode.com/problems/find-greatest-common-divisor-of-array/",
+            "difficulty": "Easy",
+            "description": "Compute the Greatest Common Divisor using the Euclidean Algorithm: GCD(a,b) = GCD(b, a%b).\n\n**Approach:** Euclidean algorithm — O(log min(a,b)).\n\n**Example:**\nGCD(48, 18) → GCD(18,12) → GCD(12,6) → GCD(6,0) = 6"
+        },
+        {
+            "problem": "LCM of two numbers",
+            "leetcode": "https://leetcode.com/problems/find-greatest-common-divisor-of-array/",
+            "difficulty": "Easy",
+            "description": "LCM(a,b) = (a × b) / GCD(a,b). Calculate GCD first using the Euclidean algorithm.\n\n**Approach:** LCM via GCD formula — O(log min(a,b)).\n\n**Example:**\nLCM(4,6) = 24/2 = 12"
+        },
+        {
+            "problem": "Check if a number is Harshad number",
+            "leetcode": "https://leetcode.com/problems/harshad-number/",
+            "difficulty": "Easy",
+            "description": "A Harshad (Niven) number is divisible by the sum of its own digits.\n\n**Approach:** Digit sum then mod check — O(d).\n\n**Example:**\nInput: 18 → digit sum = 9, 18 % 9 = 0 → Harshad!"
+        },
+        {
+            "problem": "Check if the number is abundant number or not",
+            "leetcode": "https://leetcode.com/problems/perfect-number/",
+            "difficulty": "Easy",
+            "description": "An abundant number has a sum of proper divisors greater than the number itself.\n\n**Approach:** Find divisors up to √n, sum them — O(√n).\n\n**Example:**\nInput: 12 → Proper divisors: 1,2,3,4,6 → Sum=16 > 12 → Abundant!"
+        },
+        {
+            "problem": "Sum of digits of a number",
+            "leetcode": "https://leetcode.com/problems/add-digits/",
+            "difficulty": "Easy",
+            "description": "Extract each digit using modulo 10 and accumulate their sum.\n\n**Approach:** Digit extraction — O(d).\n\n**Example:**\nInput: 1234 → 1+2+3+4 = 10"
+        },
+        {
+            "problem": "Sum of numbers in the given range",
+            "leetcode": "https://leetcode.com/problems/range-sum-query-immutable/",
+            "difficulty": "Easy",
+            "description": "Sum of integers from L to R = sum(1..R) - sum(1..L-1) = R(R+1)/2 - (L-1)L/2.\n\n**Approach:** Formula — O(1).\n\n**Example:**\nL=3, R=7 → 3+4+5+6+7 = 25"
+        },
+        {
+            "problem": "Permutations in which N people can occupy R seats in a classroom",
+            "leetcode": "https://leetcode.com/problems/count-all-valid-pickup-and-delivery-options/",
+            "difficulty": "Medium",
+            "description": "This is the Permutation formula P(n,r) = n! / (n-r)!. Calculate using factorials.\n\n**Approach:** Factorial formula — O(n).\n\n**Example:**\nP(5,2) = 5!/3! = 5×4 = 20"
+        },
+        {
+            "problem": "Program to add two fractions",
+            "leetcode": "https://leetcode.com/problems/fraction-addition-and-subtraction/",
+            "difficulty": "Medium",
+            "description": "To add a/b + c/d: find LCM of denominators, then (a×LCM/b + c×LCM/d) / LCM. Simplify with GCD.\n\n**Approach:** LCM/GCD formula — O(log n).\n\n**Example:**\n1/2 + 1/3 = 3/6 + 2/6 = 5/6"
+        },
+        {
+            "problem": "Replace all 0s with 1s in a given integer",
+            "leetcode": "https://leetcode.com/problems/number-of-1-bits/",
+            "difficulty": "Easy",
+            "description": "Extract each digit; if it is 0 replace it with 1 and reconstruct the number.\n\n**Approach:** Digit manipulation — O(d).\n\n**Example:**\nInput: 102305 → Output: 112315"
+        },
+        {
+            "problem": "Can a number be expressed as a sum of two prime numbers",
+            "leetcode": "https://leetcode.com/problems/prime-number-of-set-bits-in-binary-representation/",
+            "difficulty": "Medium",
+            "description": "For each prime p ≤ n, check if n-p is also prime. If yes, n can be expressed as sum of two primes (Goldbach's Conjecture).\n\n**Approach:** Sieve + check — O(n log log n).\n\n**Example:**\nInput: 34 → 3+31=34 → Yes"
+        },
+        {
+            "problem": "Calculate the area of circle",
+            "leetcode": "https://leetcode.com/problems/minimum-area-rectangle/",
+            "difficulty": "Easy",
+            "description": "Area of a circle = π × r². Use the value of π (3.14159...) from the math library.\n\n**Approach:** Formula — O(1).\n\n**Example:**\nr=7 → Area = 3.14159 × 49 ≈ 153.94"
+        },
+        {
+            "problem": "Program to find roots of a Quadratic Equation",
+            "leetcode": "https://leetcode.com/problems/maximize-the-number-of-partitions-after-operations/",
+            "difficulty": "Medium",
+            "description": "For ax²+bx+c=0, discriminant D=b²-4ac.\nD>0: two real roots\nD=0: one real root\nD<0: complex roots\nRoots = (-b ± √D) / 2a\n\n**Approach:** Discriminant formula — O(1).\n\n**Example:**\na=1, b=-7, c=10 → D=9 → Roots: 5, 2"
+        }
+    ],
+    "Number System": [
+        {
+            "problem": "Convert Binary to Decimal",
+            "leetcode": "https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/",
+            "difficulty": "Easy",
+            "description": "Multiply each bit by the corresponding power of 2 (from right to left) and sum them up.\n\n**Approach:** Positional value sum — O(n).\n\n**Example:**\nInput: 1011 → 1×8 + 0×4 + 1×2 + 1×1 = 11"
+        },
+        {
+            "problem": "Convert binary to octal",
+            "leetcode": "https://leetcode.com/problems/number-of-1-bits/",
+            "difficulty": "Easy",
+            "description": "Convert binary to decimal first, then decimal to octal. Alternatively, group bits in triplets from right to left, each group represents one octal digit.\n\n**Approach:** Group triplets — O(n).\n\n**Example:**\nBinary: 110 101 → Octal: 6 5 → 65"
+        },
+        {
+            "problem": "Decimal to Binary conversion",
+            "leetcode": "https://leetcode.com/problems/number-of-1-bits/",
+            "difficulty": "Easy",
+            "description": "Repeatedly divide the decimal number by 2 and collect the remainders in reverse order to get the binary representation.\n\n**Approach:** Repeated division — O(log n).\n\n**Example:**\nInput: 13 → Remainders: 1,0,1,1 → Binary: 1101"
+        },
+        {
+            "problem": "Convert decimal to octal",
+            "leetcode": "https://leetcode.com/problems/convert-a-number-to-hexadecimal/",
+            "difficulty": "Easy",
+            "description": "Repeatedly divide by 8 and collect remainders in reverse order.\n\n**Approach:** Repeated division by 8 — O(log n).\n\n**Example:**\nInput: 65 → 65/8=8 R1, 8/8=1 R0, 1/8=0 R1 → Octal: 101"
+        },
+        {
+            "problem": "Convert octal to binary",
+            "leetcode": "https://leetcode.com/problems/number-of-1-bits/",
+            "difficulty": "Easy",
+            "description": "Convert each octal digit to its 3-bit binary equivalent and concatenate them.\n\n**Approach:** Digit-by-digit 3-bit mapping — O(n).\n\n**Example:**\nOctal: 65 → 6=110, 5=101 → Binary: 110101"
+        },
+        {
+            "problem": "Convert octal to decimal",
+            "leetcode": "https://leetcode.com/problems/convert-a-number-to-hexadecimal/",
+            "difficulty": "Easy",
+            "description": "Multiply each octal digit by the corresponding power of 8 (from right to left) and sum.\n\n**Approach:** Positional value sum — O(n).\n\n**Example:**\nOctal: 52 → 5×8 + 2×1 = 42 (decimal)"
+        },
+        {
+            "problem": "Convert digits/numbers to words",
+            "leetcode": "https://leetcode.com/problems/integer-to-english-words/",
+            "difficulty": "Hard",
+            "description": "Convert a number to its English word representation. Handle ones, teens, tens, hundreds, thousands using lookup tables and recursion.\n\n**Approach:** Lookup tables + recursion — O(n).\n\n**Example:**\nInput: 1234 → \"One Thousand Two Hundred Thirty Four\""
+        }
+    ],
+    "Sorting": [
+        {
+            "problem": "Bubble Sort Algorithm",
+            "leetcode": "https://leetcode.com/problems/sort-an-array/",
+            "difficulty": "Easy",
+            "description": "Repeatedly step through the list, compare adjacent elements and swap them if they are in the wrong order. The pass is repeated until no swaps are needed.\n\n**Approach:** Adjacent swaps — O(n²) worst, O(n) best (already sorted).\n\n**Example:**\n[64,34,25,12,22] → Pass 1: [34,25,12,22,64] → ... → [12,22,25,34,64]"
+        },
+        {
+            "problem": "Selection Sort Algorithm",
+            "leetcode": "https://leetcode.com/problems/sort-an-array/",
+            "difficulty": "Easy",
+            "description": "Divide the array into sorted and unsorted parts. Repeatedly find the minimum from the unsorted portion and move it to the sorted portion.\n\n**Approach:** Select min, swap — O(n²) always.\n\n**Example:**\n[64,25,12,22] → [12,25,64,22] → [12,22,64,25] → [12,22,25,64]"
+        },
+        {
+            "problem": "Insertion Sort Algorithm",
+            "leetcode": "https://leetcode.com/problems/insertion-sort-list/",
+            "difficulty": "Easy",
+            "description": "Build the sorted array one element at a time. Pick each element and insert it into its correct position in the already-sorted portion.\n\n**Approach:** Key insertion — O(n²) worst, O(n) for nearly sorted data.\n\n**Example:**\n[5,2,4,6,1] → [2,5,4,6,1] → [2,4,5,6,1] → ... → [1,2,4,5,6]"
+        },
+        {
+            "problem": "Quick Sort Algorithm",
+            "leetcode": "https://leetcode.com/problems/sort-an-array/",
+            "difficulty": "Medium",
+            "description": "Choose a pivot, partition the array so that elements less than pivot come before it and greater come after, then recursively sort the subarrays.\n\n**Approach:** Divide & conquer — O(n log n) avg, O(n²) worst.\n\n**Example:**\n[10,80,30,90,40,50,70] → pivot=70 → [10,30,40,50,70,80,90]"
+        },
+        {
+            "problem": "Merge sort algorithm",
+            "leetcode": "https://leetcode.com/problems/sort-list/",
+            "difficulty": "Medium",
+            "description": "Divide the array into two halves, recursively sort each half, then merge the two sorted halves.\n\n**Approach:** Divide & conquer — O(n log n) always, O(n) space.\n\n**Example:**\n[38,27,43,3,9,82,10] → divide → sort → merge → [3,9,10,27,38,43,82]"
+        }
+    ],
+    "String": [
+        {
+            "problem": "Check if a given string is palindrome or not",
+            "leetcode": "https://leetcode.com/problems/valid-palindrome/",
+            "difficulty": "Easy",
+            "description": "Use two pointers from both ends of the string, moving inward and comparing characters until they meet.\n\n**Approach:** Two pointers — O(n) time, O(1) space.\n\n**Example:**\nInput: \"racecar\" → true | Input: \"hello\" → false"
+        },
+        {
+            "problem": "Count number of vowels, consonants, spaces in String",
+            "leetcode": "https://leetcode.com/problems/count-vowels-permutation/",
+            "difficulty": "Easy",
+            "description": "Iterate through the string and classify each character as a vowel, consonant, or space using if-else or sets.\n\n**Approach:** Linear scan — O(n).\n\n**Example:**\nInput: \"Hello World\" → Vowels: 3, Consonants: 7, Spaces: 1"
+        },
+        {
+            "problem": "Find the ASCII value of a character",
+            "leetcode": "https://leetcode.com/problems/sum-of-values-at-indices-with-k-set-bits/",
+            "difficulty": "Easy",
+            "description": "In most languages, casting a character to int gives its ASCII value. In Java: (int)'A' = 65, in C: (int)char.\n\n**Approach:** Type cast / char arithmetic — O(1).\n\n**Example:**\n'A'=65, 'a'=97, '0'=48, ' '=32"
+        },
+        {
+            "problem": "Remove all vowels from the string",
+            "leetcode": "https://leetcode.com/problems/remove-vowels-from-a-string/",
+            "difficulty": "Easy",
+            "description": "Iterate through each character; if it is not a vowel (a,e,i,o,u), add it to the result string.\n\n**Approach:** Filter characters — O(n).\n\n**Example:**\nInput: \"Hello World\" → Output: \"Hll Wrld\""
+        },
+        {
+            "problem": "Remove spaces from a string",
+            "leetcode": "https://leetcode.com/problems/reverse-words-in-a-string-iii/",
+            "difficulty": "Easy",
+            "description": "Iterate through each character and skip space characters when building the result string.\n\n**Approach:** Filter characters — O(n).\n\n**Example:**\nInput: \"Hello World\" → Output: \"HelloWorld\""
+        },
+        {
+            "problem": "Remove characters from a string except alphabets",
+            "leetcode": "https://leetcode.com/problems/remove-non-alphanumeric-characters/",
+            "difficulty": "Easy",
+            "description": "Iterate through each character and add only alphabetic characters (a-z, A-Z) to the result.\n\n**Approach:** Character class check — O(n).\n\n**Example:**\nInput: \"Hello, World!123\" → Output: \"HelloWorld\""
+        },
+        {
+            "problem": "Reverse a String",
+            "leetcode": "https://leetcode.com/problems/reverse-string/",
+            "difficulty": "Easy",
+            "description": "Use two pointers at start and end, swapping characters until they meet in the middle.\n\n**Approach:** Two pointers — O(n) time, O(1) space.\n\n**Example:**\nInput: \"hello\" → Output: \"olleh\""
+        },
+        {
+            "problem": "Remove brackets from an algebraic expression",
+            "leetcode": "https://leetcode.com/problems/remove-outermost-parentheses/",
+            "difficulty": "Medium",
+            "description": "Remove all bracket characters (parentheses, curly braces, square brackets) from the string, keeping the remaining content intact.\n\n**Approach:** Filter characters — O(n).\n\n**Example:**\nInput: \"a-(b+c)\" → Output: \"a-b+c\""
+        },
+        {
+            "problem": "Sum of the numbers in a String",
+            "leetcode": "https://leetcode.com/problems/sum-of-digits-in-the-minimum-number/",
+            "difficulty": "Medium",
+            "description": "Extract all numeric substrings from the string, convert them to integers, and sum them up.\n\n**Approach:** Parse numbers with pointer — O(n).\n\n**Example:**\nInput: \"ab12cd3ef5\" → 12+3+5 = 20"
+        },
+        {
+            "problem": "Capitalize first and last character of each word",
+            "leetcode": "https://leetcode.com/problems/capitalize-the-title/",
+            "difficulty": "Easy",
+            "description": "Split the string by spaces. For each word, capitalize the first and last character, keeping remaining characters as-is.\n\n**Approach:** Split + modify — O(n).\n\n**Example:**\nInput: \"hello world\" → Output: \"HellO WorlD\""
+        },
+        {
+            "problem": "Calculate frequency of characters in a string",
+            "leetcode": "https://leetcode.com/problems/sort-characters-by-frequency/",
+            "difficulty": "Easy",
+            "description": "Use a HashMap or frequency array of 256 entries to count occurrences of each character.\n\n**Approach:** Frequency array or HashMap — O(n).\n\n**Example:**\nInput: \"programming\" → {p:1, r:2, o:1, g:2, a:1, m:2, i:1, n:1}"
+        },
+        {
+            "problem": "Find Non-repeating characters of a String",
+            "leetcode": "https://leetcode.com/problems/first-unique-character-in-a-string/",
+            "difficulty": "Easy",
+            "description": "Count frequency of each character, then collect only those with frequency = 1 in order of appearance.\n\n**Approach:** Frequency map — O(n).\n\n**Example:**\nInput: \"programming\" → Non-repeating: p, o, a, i, n"
+        },
+        {
+            "problem": "Check if two strings are anagram of each other",
+            "leetcode": "https://leetcode.com/problems/valid-anagram/",
+            "difficulty": "Easy",
+            "description": "Two strings are anagrams if they have the same character frequency map. Sort both strings and compare, or use a frequency array.\n\n**Approach:** Sort or frequency map — O(n log n) or O(n).\n\n**Example:**\nInput: \"listen\", \"silent\" → true"
+        },
+        {
+            "problem": "Count common sub-sequence in two strings",
+            "leetcode": "https://leetcode.com/problems/distinct-subsequences/",
+            "difficulty": "Hard",
+            "description": "Count common subsequences between two strings using dynamic programming. dp[i][j] = number of common subsequences in s1[0..i] and s2[0..j].\n\n**Approach:** 2D DP — O(m×n) time and space.\n\n**Example:**\nInput: \"AB\", \"AB\" → Common subsequences: \"\", \"A\", \"B\", \"AB\" = 4"
+        },
+        {
+            "problem": "Check if two strings match where one string contains wildcard characters",
+            "leetcode": "https://leetcode.com/problems/wildcard-matching/",
+            "difficulty": "Hard",
+            "description": "'?' matches any single character, '*' matches any sequence (including empty). Use dynamic programming or recursive matching.\n\n**Approach:** 2D DP — O(m×n) time.\n\n**Example:**\nPattern: \"a*b\", String: \"aXYb\" → Match: true"
+        },
+        {
+            "problem": "Return maximum occurring character in the input string",
+            "leetcode": "https://leetcode.com/problems/sort-characters-by-frequency/",
+            "difficulty": "Easy",
+            "description": "Count character frequencies using a HashMap or array. Return the character with the highest count.\n\n**Approach:** Frequency map — O(n).\n\n**Example:**\nInput: \"programming\" → 'm' appears most (2 times) — with r, g (tie possible)"
+        },
+        {
+            "problem": "Remove all duplicates from the input string",
+            "leetcode": "https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/",
+            "difficulty": "Easy",
+            "description": "Maintain a LinkedHashSet or a visited boolean array to keep only the first occurrence of each character.\n\n**Approach:** HashSet traversal — O(n).\n\n**Example:**\nInput: \"programming\" → Output: \"progamin\""
+        },
+        {
+            "problem": "Print all the duplicates in the input string",
+            "leetcode": "https://leetcode.com/problems/find-all-anagrams-in-a-string/",
+            "difficulty": "Easy",
+            "description": "Count frequency of each character; print those with frequency > 1.\n\n**Approach:** Frequency map — O(n).\n\n**Example:**\nInput: \"programming\" → Duplicates: r, g, m (each appears twice)"
+        },
+        {
+            "problem": "Remove characters from first string present in the second string",
+            "leetcode": "https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/",
+            "difficulty": "Medium",
+            "description": "Build a character set from the second string. Iterate the first string and keep only characters NOT in the set.\n\n**Approach:** HashSet filter — O(n + m).\n\n**Example:**\nS1=\"geeksforgeeks\", S2=\"mask\" → Output: \"geeforgees\""
+        },
+        {
+            "problem": "Change every letter with the next lexicographic alphabet in the given string",
+            "leetcode": "https://leetcode.com/problems/shift-distance-between-two-strings/",
+            "difficulty": "Easy",
+            "description": "For each alphabetic character, replace it with the next letter in the alphabet. Wrap 'z' to 'a' and 'Z' to 'A'.\n\n**Approach:** Char arithmetic — O(n).\n\n**Example:**\nInput: \"hello\" → Output: \"ifmmp\""
+        },
+        {
+            "problem": "Write a program to find the largest word in a given string",
+            "leetcode": "https://leetcode.com/problems/longest-word-in-dictionary/",
+            "difficulty": "Easy",
+            "description": "Split the string by spaces and return the word with the maximum length.\n\n**Approach:** Split + max by length — O(n).\n\n**Example:**\nInput: \"I love programming\" → Largest: \"programming\" (11 chars)"
+        },
+        {
+            "problem": "Write a program to sort characters in a string",
+            "leetcode": "https://leetcode.com/problems/sort-characters-by-frequency/",
+            "difficulty": "Easy",
+            "description": "Convert the string to a character array, sort it using Arrays.sort() or a custom sort, then join back.\n\n**Approach:** Array sort — O(n log n).\n\n**Example:**\nInput: \"programming\" → Output: \"aggimmnoprr\""
+        },
+        {
+            "problem": "Count number of words in a given string",
+            "leetcode": "https://leetcode.com/problems/number-of-segments-in-a-string/",
+            "difficulty": "Easy",
+            "description": "Split the string by one or more whitespace characters and count the resulting tokens.\n\n**Approach:** Split or manual scan — O(n).\n\n**Example:**\nInput: \"I love coding challenges\" → Word count: 4"
+        },
+        {
+            "problem": "Find the string which has the highest number of repeated letters",
+            "leetcode": "https://leetcode.com/problems/sort-characters-by-frequency/",
+            "difficulty": "Medium",
+            "description": "Given multiple strings, for each string count how many characters appear more than once (duplicates). Return the string with the highest duplicate count.\n\n**Approach:** Frequency map per string — O(n×m).\n\n**Example:**\nStrings: [\"aab\", \"programming\"] → \"programming\" has more repeated letters"
+        },
+        {
+            "problem": "Change case of each character in a string",
+            "leetcode": "https://leetcode.com/problems/to-lower-case/",
+            "difficulty": "Easy",
+            "description": "Toggle the case of every character: uppercase becomes lowercase, lowercase becomes uppercase.\n\n**Approach:** Character check and conversion — O(n).\n\n**Example:**\nInput: \"HeLLo WoRLd\" → Output: \"hEllO wOrlD\""
+        },
+        {
+            "problem": "Concatenate one string to another",
+            "leetcode": "https://leetcode.com/problems/merge-strings-alternately/",
+            "difficulty": "Easy",
+            "description": "Combine two strings end-to-end. Use the + operator or StringBuilder for efficiency when concatenating multiple strings.\n\n**Approach:** String concatenation — O(n + m).\n\n**Example:**\nS1=\"Hello\", S2=\" World\" → Result: \"Hello World\""
+        },
+        {
+            "problem": "Find a substring within a string, if found display its starting position",
+            "leetcode": "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/",
+            "difficulty": "Easy",
+            "description": "Search for a pattern within a text using a built-in indexOf() or implement KMP algorithm for O(n+m) complexity.\n\n**Approach:** KMP or indexOf — O(n + m).\n\n**Example:**\nText: \"hello world\", Pattern: \"world\" → Found at index 6"
+        },
+        {
+            "problem": "Reverse words in a string",
+            "leetcode": "https://leetcode.com/problems/reverse-words-in-a-string/",
+            "difficulty": "Medium",
+            "description": "Split the string into words, reverse the array of words, and join them back with a space. Handle multiple spaces and leading/trailing spaces.\n\n**Approach:** Split, reverse, join — O(n).\n\n**Example:**\nInput: \"the sky is blue\" → Output: \"blue is sky the\""
+        }
+    ]
+}
