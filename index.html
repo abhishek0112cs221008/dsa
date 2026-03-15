@@ -213,6 +213,58 @@ body.light .bnav{background:rgba(245,245,247,.96);}
   .tbicon{width:32px;height:32px;font-size:15px;}
   .tbstats{flex-direction:column;align-items:flex-end;gap:2px;}
 }
+
+.nav-dropdown{
+position:relative;
+}
+
+.nav-btn{
+background:none;
+border:none;
+color:inherit;
+font-size:14px;
+cursor:pointer;
+padding:6px 10px;
+}
+
+.dropdown-menu{
+
+position:absolute;
+top:40px;
+left:0;
+
+background:white;
+color:black;
+
+min-width:220px;
+
+display:none;
+flex-direction:column;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+
+border:1px solid #ddd;
+
+z-index:999;
+
+}
+
+.dropdown-menu a{
+
+padding:12px 16px;
+text-decoration:none;
+color:black;
+font-size:14px;
+display:block;
+
+}
+
+.dropdown-menu a:hover{
+
+background:#f5f5f5;
+
+}
+
 </style>
 </head>
 <body>
@@ -221,6 +273,27 @@ body.light .bnav{background:rgba(245,245,247,.96);}
     <div class="logo">📚 DSA <span>Ref</span></div>
     <div class="hdr-r">
       <a href="tcs_nqt.html">TCS NQT</a>
+      <div class="nav-dropdown">
+
+        <button class="nav-btn" onclick="toggleDropdown()">
+          Topics ▾
+        </button>
+
+        <div id="topicMenu" class="dropdown-menu">
+
+          <a href="tcs_nqt.html">TCS NQT</a>
+          <a href="BinarySearch/index.html">Binary Search</a>
+          <!-- <a href="sliding_window.html">Sliding Window</a>
+          <a href="two_pointer.html">Two Pointer</a>
+          <a href="stack.html">Stack</a>
+          <a href="queue.html">Queue</a>
+          <a href="tree.html">Tree</a>
+          <a href="graph.html">Graph</a>
+          <a href="dp.html">Dynamic Programming</a> -->
+
+        </div>
+
+      </div>
       <div class="sw-box">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         <input type="search" id="si" placeholder="Search…" oninput="doFilter(this.value)" autocomplete="off"/>
@@ -785,6 +858,30 @@ const wh=wHTML();
 document.getElementById('RP').innerHTML=wh;
 document.getElementById('DRI').innerHTML=wh;
 render();renderCal();updStreak();updTDisp();markToday();
+
+
+function toggleDropdown(){
+
+const menu=document.getElementById("topicMenu")
+
+if(menu.style.display==="block")
+menu.style.display="none"
+else
+menu.style.display="block"
+
+}
+
+document.addEventListener("click",function(e){
+
+const menu=document.getElementById("topicMenu")
+const btn=document.querySelector(".nav-btn")
+
+if(!btn.contains(e.target) && !menu.contains(e.target)){
+menu.style.display="none"
+}
+
+})
+
 </script>
 </body>
 </html>

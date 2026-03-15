@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binary Search Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page-shell">
+<header class="hero">
+<!-- <p class="eyebrow">DSA Roadmap</p> -->
+<h1>Binary Search</h1>
+<!-- <p class="hero-copy">Track each Binary Search pattern from the JSON data source, grouped exactly by category.</p> -->
+<div class="progress-block">
+<div class="progress-meta">
+<span>Overall progress</span>
+<span id="progress-text">0%</span>
+</div>
+<div class="progress-container" aria-label="Overall progress">
+<div id="progress-bar"></div>
+</div>
+</div>
+</header>
+
+<main class="layout">
+<section class="main">
+<div class="section-heading">
+<h2>Problem List</h2>
+<p id="category-count">0 categories</p>
+</div>
+<div id="problemTable" class="problem-groups"></div>
+</section>
+
+<aside class="sidebar">
+<div class="card stats-card">
+<h3>Progress</h3>
+<div class="stat-row">
+<span>Total Problems</span>
+<strong id="total">0</strong>
+</div>
+<div class="stat-row">
+<span>Solved</span>
+<strong id="done">0</strong>
+</div>
+<div class="stat-row">
+<span>Remaining</span>
+<strong id="left">0</strong>
+</div>
+</div>
+
+</aside>
+</main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

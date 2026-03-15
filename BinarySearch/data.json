@@ -1,0 +1,133 @@
+{
+  "categories": [
+    {
+      "name": "Binary Search 1D",
+      "problems": [
+        {
+          "id": 1,
+          "problem": "Search in Rotated Sorted Array",
+          "difficulty": "Medium",
+          "pattern": "Binary Search on Rotated Array",
+          "leetcode": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+          "solved": false
+        },
+        {
+          "id": 2,
+          "problem": "Find Minimum in Rotated Sorted Array",
+          "difficulty": "Medium",
+          "pattern": "Binary Search on Rotated Array",
+          "leetcode": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+          "solved": false
+        },
+        {
+          "id": 3,
+          "problem": "Single Element in a Sorted Array",
+          "difficulty": "Medium",
+          "pattern": "Binary Search with Index Logic",
+          "leetcode": "https://leetcode.com/problems/single-element-in-a-sorted-array/",
+          "solved": false
+        },
+        {
+          "id": 4,
+          "problem": "Find Peak Element",
+          "difficulty": "Medium",
+          "pattern": "Binary Search on Peak",
+          "leetcode": "https://leetcode.com/problems/find-peak-element/",
+          "solved": false
+        }
+      ]
+    },
+
+    {
+      "name": "Binary Search on Answers",
+      "problems": [
+        {
+          "id": 5,
+          "problem": "Koko Eating Bananas",
+          "difficulty": "Medium",
+          "pattern": "Binary Search on Answer",
+          "leetcode": "https://leetcode.com/problems/koko-eating-bananas/",
+          "solved": false
+        },
+        {
+          "id": 6,
+          "problem": "Capacity to Ship Packages Within D Days",
+          "difficulty": "Medium",
+          "pattern": "Binary Search on Answer",
+          "leetcode": "https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/",
+          "solved": false
+        },
+        {
+          "id": 7,
+          "problem": "Aggressive Cows",
+          "difficulty": "Hard",
+          "pattern": "Binary Search on Answer",
+          "leetcode": "https://www.geeksforgeeks.org/problems/aggressive-cows/1",
+          "solved": false
+        },
+        {
+          "id": 8,
+          "problem": "Book Allocation Problem",
+          "difficulty": "Hard",
+          "pattern": "Binary Search on Answer",
+          "leetcode": "https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1",
+          "solved": false
+        },
+        {
+          "id": 9,
+          "problem": "Split Array Largest Sum",
+          "difficulty": "Hard",
+          "pattern": "Binary Search on Answer",
+          "leetcode": "https://leetcode.com/problems/split-array-largest-sum/",
+          "solved": false
+        },
+        {
+          "id": 10,
+          "problem": "Painter's Partition",
+          "difficulty": "Medium",
+          "pattern": "Binary Search on Answer",
+          "leetcode": "https://www.geeksforgeeks.org/problems/the-painters-partition-problem1535/1",
+          "solved": false
+        },
+        {
+          "id": 11,
+          "problem": "Median of Two Sorted Arrays",
+          "difficulty": "Hard",
+          "pattern": "Binary Search on Partition",
+          "leetcode": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+          "solved": false
+        }
+      ]
+    },
+
+    {
+      "name": "2D Binary Search",
+      "problems": [
+        {
+          "id": 12,
+          "problem": "Search in 2D Matrix",
+          "difficulty": "Medium",
+          "pattern": "Binary Search on Matrix",
+          "leetcode": "https://leetcode.com/problems/search-a-2d-matrix/",
+          "solved": false
+        },
+        {
+          "id": 13,
+          "problem": "Search in 2D Matrix II",
+          "difficulty": "Medium",
+          "pattern": "Matrix Search Optimization",
+          "leetcode": "https://leetcode.com/problems/search-a-2d-matrix-ii/",
+          "solved": false
+        },
+        {
+          "id": 14,
+          "problem": "Matrix Median",
+          "difficulty": "Hard",
+          "pattern": "Binary Search on Answer (Matrix)",
+          "leetcode": "https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1",
+          "solved": false
+        }
+      ]
+    }
+  ]
+}
