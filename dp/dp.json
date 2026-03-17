@@ -1,0 +1,46 @@
+{
+  "Tier 1 - MUST KNOW": [
+    {
+      "problem": "Climbing Stairs",
+      "leetcode": "https://leetcode.com/problems/climbing-stairs/"
+    },
+    {
+      "problem": "House Robber",
+      "leetcode": "https://leetcode.com/problems/house-robber/"
+    },
+    {
+      "problem": "Maximum Subarray",
+      "leetcode": "https://leetcode.com/problems/maximum-subarray/"
+    },
+    {
+      "problem": "Best Time to Buy and Sell Stock",
+      "leetcode": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/"
+    },
+    {
+      "problem": "Min Cost Climbing Stairs",
+      "leetcode": "https://leetcode.com/problems/min-cost-climbing-stairs/"
+    }
+  ],
+  "Tier 2 - GOOD TO KNOW": [
+    {
+      "problem": "Coin Change",
+      "leetcode": "https://leetcode.com/problems/coin-change/"
+    },
+    {
+      "problem": "Longest Common Subsequence",
+      "leetcode": "https://leetcode.com/problems/longest-common-subsequence/"
+    },
+    {
+      "problem": "Longest Increasing Subsequence",
+      "leetcode": "https://leetcode.com/problems/longest-increasing-subsequence/"
+    },
+    {
+      "problem": "0/1 Knapsack",
+      "leetcode": "https://leetcode.com/problems/partition-equal-subset-sum/"
+    },
+    {
+      "problem": "Unique Paths",
+      "leetcode": "https://leetcode.com/problems/unique-paths/"
+    }
+  ]
+}
