@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Pattern Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --surface2: #181c24;
+    --border: #1e2530;
+    --accent: #00e5a0;
+    --accent2: #ff6b35;
+    --accent3: #7b61ff;
+    --text: #e2e8f0;
+    --text-dim: #64748b;
+    --text-muted: #334155;
+    --success: #00e5a0;
+    --error: #ff4757;
+    --warn: #ffa502;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+  /* Header */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .logo-text { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; }
+  .logo-text span { color: var(--accent); }
+  .stats-bar { display: flex; gap: 16px; }
+  .stat { text-align: center; }
+  .stat-val { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Category tabs */
+  .cat-tabs {
+    display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .cat-tab {
+    padding: 7px 16px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .cat-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .cat-tab.active { background: rgba(0,229,160,0.1); border-color: var(--accent); color: var(--accent); }
+
+  /* Main layout */
+  .main { display: grid; grid-template-columns: 340px 1fr; gap: 20px; }
+
+  /* Question list */
+  .q-panel {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .q-panel-header {
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text-dim); display: flex; justify-content: space-between;
+  }
+  .q-list { max-height: 580px; overflow-y: auto; padding: 8px; }
+  .q-list::-webkit-scrollbar { width: 4px; }
+  .q-list::-webkit-scrollbar-track { background: transparent; }
+  .q-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .q-item {
+    padding: 12px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid transparent; margin-bottom: 4px;
+    transition: all 0.18s;
+  }
+  .q-item:hover { background: var(--surface2); border-color: var(--border); }
+  .q-item.active { background: rgba(0,229,160,0.07); border-color: rgba(0,229,160,0.3); }
+  .q-item.solved { border-left: 3px solid var(--success); }
+  .q-num { font-size: 10px; color: var(--text-dim); margin-bottom: 3px; }
+  .q-title { font-size: 13px; font-weight: 600; color: var(--text); }
+  .q-diff {
+    display: inline-block; font-size: 9px; padding: 2px 7px;
+    border-radius: 3px; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .diff-easy { background: rgba(0,229,160,0.12); color: var(--accent); }
+  .diff-medium { background: rgba(255,165,2,0.12); color: var(--warn); }
+  .diff-hard { background: rgba(255,71,87,0.12); color: var(--error); }
+
+  /* Practice panel */
+  .practice-panel { display: flex; flex-direction: column; gap: 16px; }
+
+  .pattern-display {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 18px; border-bottom: 1px solid var(--border);
+  }
+  .panel-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); }
+  .panel-actions { display: flex; gap: 8px; }
+  .btn-sm {
+    padding: 5px 12px; border-radius: 5px; border: 1px solid var(--border);
+    background: transparent; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    cursor: pointer; transition: all 0.18s;
+  }
+  .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-sm.primary { background: rgba(0,229,160,0.1); border-color: var(--accent); color: var(--accent); }
+  .btn-sm.danger { background: rgba(255,71,87,0.1); border-color: var(--error); color: var(--error); }
+
+  .pattern-output {
+    padding: 20px 24px; font-size: 18px; line-height: 1.4;
+    color: var(--accent); letter-spacing: 2px; white-space: pre;
+    min-height: 160px;
+  }
+
+  /* Question Info */
+  .q-info {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px;
+  }
+  .q-info h2 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+  .q-desc { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+  .q-meta { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+  .q-tag {
+    font-size: 10px; padding: 3px 10px; border-radius: 4px;
+    background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim);
+  }
+
+  /* Code editor area */
+  .code-area {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .code-editor {
+    width: 100%; background: transparent; border: none; outline: none;
+    color: #a8d8a8; font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    padding: 18px 20px; resize: none; min-height: 220px; line-height: 1.7;
+    tab-size: 4;
+  }
+  .code-editor::placeholder { color: var(--text-muted); }
+
+  /* AI chat */
+  .ai-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .chat-messages {
+    padding: 14px 16px; max-height: 260px; overflow-y: auto; display: flex;
+    flex-direction: column; gap: 10px;
+  }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); }
+  .msg {
+    padding: 10px 14px; border-radius: 8px; font-size: 12.5px; line-height: 1.65;
+    max-width: 90%;
+  }
+  .msg.ai {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); align-self: flex-start;
+  }
+  .msg.user {
+    background: rgba(123,97,255,0.1); border: 1px solid rgba(123,97,255,0.2);
+    align-self: flex-end; text-align: right;
+  }
+  .msg-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 4px; color: var(--text-dim); }
+  .msg pre { white-space: pre-wrap; color: var(--accent); margin-top: 6px;
+    font-size: 12px; background: rgba(0,229,160,0.05); padding: 8px; border-radius: 4px; }
+  .chat-input-area {
+    padding: 12px 14px; border-top: 1px solid var(--border);
+    display: flex; gap: 8px;
+  }
+  .chat-input {
+    flex: 1; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 7px; padding: 9px 14px; color: var(--text);
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .chat-input:focus { border-color: var(--accent); }
+  .chat-input::placeholder { color: var(--text-muted); }
+  .send-btn {
+    padding: 9px 18px; background: linear-gradient(135deg, var(--accent), #00c47a);
+    border: none; border-radius: 7px; color: #000; font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700; cursor: pointer; transition: opacity 0.2s;
+  }
+  .send-btn:hover { opacity: 0.85; }
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Quick action buttons */
+  .quick-actions {
+    display: flex; gap: 8px; padding: 0 14px 12px; flex-wrap: wrap;
+  }
+  .qa-btn {
+    padding: 5px 12px; border-radius: 5px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    cursor: pointer; transition: all 0.18s;
+  }
+  .qa-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  /* Loading dots */
+  .loading { display: flex; gap: 4px; align-items: center; padding: 6px 0; }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    animation: bounce 1.2s infinite;
+  }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  .n-control {
+    display: flex; align-items: center; gap: 10px; padding: 8px 18px 14px;
+  }
+  .n-label { font-size: 12px; color: var(--text-dim); }
+  .n-slider { accent-color: var(--accent); width: 130px; }
+  .n-val { font-size: 14px; color: var(--accent); font-weight: 700; min-width: 20px; }
+
+  .solved-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(0,229,160,0.1); border: 1px solid var(--accent);
+    color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 11px;
+  }
+
+  @media (max-width: 768px) {
+    .main { grid-template-columns: 1fr; }
+    .q-list { max-height: 200px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="logo">
+      <div class="logo-icon">◈</div>
+      <div>
+        <div class="logo-text">Java <span>Pattern</span> Lab</div>
+        <div style="font-size:10px;color:var(--text-dim);letter-spacing:1px;margin-top:1px">MASTER EVERY PATTERN TYPE</div>
+      </div>
+    </div>
+    <div class="stats-bar">
+      <div class="stat"><div class="stat-val" id="solvedCount">0</div><div class="stat-label">Solved</div></div>
+      <div class="stat"><div class="stat-val" id="totalCount">0</div><div class="stat-label">Total</div></div>
+    </div>
+  </header>
+
+  <div class="cat-tabs" id="catTabs"></div>
+
+  <div class="main">
+    <!-- Question list -->
+    <div class="q-panel">
+      <div class="q-panel-header">
+        <span>Questions</span>
+        <span id="filteredCount" style="color:var(--accent)"></span>
+      </div>
+      <div class="q-list" id="qList"></div>
+    </div>
+
+    <!-- Practice area -->
+    <div class="practice-panel" id="practicePanel">
+      <div style="display:flex;align-items:center;justify-content:center;height:400px;color:var(--text-dim);font-size:14px;flex-direction:column;gap:12px">
+        <div style="font-size:36px">◈</div>
+        <div>Select a question to start practicing</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  // ── STAR PATTERNS ──────────────────────────────────────────
+  {
+    id:1, cat:'Star', title:'Right Triangle',  diff:'easy',
+    desc:'Print a right-angled triangle of stars. Row i has i stars.',
+    tags:['nested loops','right triangle'],
+    pattern: n => Array.from({length:n},(_,i)=>'* '.repeat(i+1).trim()).join('\n'),
+    logic:`Use two nested loops:\n• Outer loop: i from 1 to n\n• Inner loop: j from 1 to i\n  → print '*'\nPrint newline after each row.`,
+    template:`public static void pattern(int n) {\n    for (int i = 1; i <= n; i++) {\n        for (int j = 1; j <= ___; j++) {\n            System.out.print("* ");\n        }\n        System.out.println();\n    }\n}`,
+    solution:`public static void pattern(int n) {\n    for (int i = 1; i <= n; i++) {\n        for (int j = 1; j <= i; j++) {\n            System.out.print("* ");\n        }\n        System.out.println();\n    }\n}`
+  },
+  {
+    id:2, cat:'Star', title:'Inverted Right Triangle', diff:'easy',
+    desc:'Print an inverted right-angled triangle. Row i has (n-i+1) stars.',
+    tags:['nested loops','inverted'],
+    pattern: n => Array.from({length:n},(_,i)=>'* '.repeat(n-i).trim()).join('\n'),
+    logic:`• Outer loop: i from 1 to n\n• Inner loop: j from 1 to (n-i+1)\nAs i increases, star count decreases.`,
+    template:`for (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= ___; j++) {\n        System.out.print("* ");\n    }\n    System.out.println();\n}`,
+    solution:`for (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= (n - i + 1); j++) {\n        System.out.print("* ");\n    }\n    System.out.println();\n}`
+  },
+  {
+    id:3, cat:'Star', title:'Full Pyramid', diff:'medium',
+    desc:'Print a centered pyramid. Row i has (2i-1) stars with leading spaces.',
+    tags:['pyramid','spaces','centering'],
+    pattern: n => Array.from({length:n},(_,i)=>' '.repeat(n-i-1)+'* '.repeat(2*i+1).trim()).join('\n'),
+    logic:`Row i (0-indexed):\n• Spaces = n - i - 1\n• Stars  = 2*i + 1\nOuter loop i from 0 to n-1`,
+    template:`for (int i = 0; i < n; i++) {\n    // print spaces\n    for (int s = 0; s < ___; s++) System.out.print(" ");\n    // print stars\n    for (int j = 0; j < ___; j++) System.out.print("* ");\n    System.out.println();\n}`,
+    solution:`for (int i = 0; i < n; i++) {\n    for (int s = 0; s < n - i - 1; s++) System.out.print(" ");\n    for (int j = 0; j < 2 * i + 1; j++) System.out.print("* ");\n    System.out.println();\n}`
+  },
+  {
+    id:4, cat:'Star', title:'Inverted Pyramid', diff:'medium',
+    desc:'Print an inverted centered pyramid decreasing from n stars to 1.',
+    tags:['pyramid','inverted','spaces'],
+    pattern: n => Array.from({length:n},(_,i)=>' '.repeat(i)+'* '.repeat(2*(n-i)-1).trim()).join('\n'),
+    logic:`Row i (0-indexed):\n• Spaces = i\n• Stars  = 2*(n-i) - 1\nTop row has most stars, bottom has 1.`,
+    template:`for (int i = 0; i < n; i++) {\n    for (int s = 0; s < ___; s++) System.out.print(" ");\n    for (int j = 0; j < ___; j++) System.out.print("* ");\n    System.out.println();\n}`,
+    solution:`for (int i = 0; i < n; i++) {\n    for (int s = 0; s < i; s++) System.out.print(" ");\n    for (int j = 0; j < 2 * (n - i) - 1; j++) System.out.print("* ");\n    System.out.println();\n}`
+  },
+  {
+    id:5, cat:'Star', title:'Diamond', diff:'hard',
+    desc:'Print a full diamond shape combining a pyramid and inverted pyramid.',
+    tags:['diamond','pyramid','two-part'],
+    pattern: n => {
+      let rows=[];
+      for(let i=0;i<n;i++) rows.push(' '.repeat(n-i-1)+'*'.repeat(2*i+1));
+      for(let i=n-2;i>=0;i--) rows.push(' '.repeat(n-i-1)+'*'.repeat(2*i+1));
+      return rows.join('\n');
+    },
+    logic:`Two loops:\n1. Upper half (i: 0→n-1): spaces=n-i-1, stars=2i+1\n2. Lower half (i: n-2→0): spaces=n-i-1, stars=2i+1`,
+    template:`// Upper\nfor (int i = 0; i < n; i++) { ... }\n// Lower  \nfor (int i = ___; i >= 0; i--) { ... }`,
+    solution:`for (int i = 0; i < n; i++) {\n    for (int s=0;s<n-i-1;s++) System.out.print(" ");\n    for (int j=0;j<2*i+1;j++) System.out.print("*");\n    System.out.println();\n}\nfor (int i = n-2; i >= 0; i--) {\n    for (int s=0;s<n-i-1;s++) System.out.print(" ");\n    for (int j=0;j<2*i+1;j++) System.out.print("*");\n    System.out.println();\n}`
+  },
+  {
+    id:6, cat:'Star', title:'Hollow Rectangle', diff:'medium',
+    desc:'Print a hollow rectangle with stars only on the border.',
+    tags:['rectangle','hollow','border'],
+    pattern: n => Array.from({length:n},(_,i)=>{
+      if(i===0||i===n-1) return '*'.repeat(2*n-1);
+      return '*'+' '.repeat(2*n-3)+'*';
+    }).join('\n'),
+    logic:`For each row i:\n• If i==0 or i==n-1: print all stars\n• Else: print '*', spaces, '*'\nKey condition: first row, last row, or middle rows.`,
+    template:`for (int i = 0; i < n; i++) {\n    for (int j = 0; j < n; j++) {\n        if (i==0 || i==n-1 || ___) System.out.print("* ");\n        else System.out.print("  ");\n    }\n    System.out.println();\n}`,
+    solution:`for (int i = 0; i < n; i++) {\n    for (int j = 0; j < n; j++) {\n        if (i==0 || i==n-1 || j==0 || j==n-1)\n            System.out.print("* ");\n        else System.out.print("  ");\n    }\n    System.out.println();\n}`
+  },
+  {
+    id:7, cat:'Star', title:'Butterfly', diff:'hard',
+    desc:'Print a butterfly pattern — stars on both sides forming wings.',
+    tags:['butterfly','symmetric','two-loops'],
+    pattern: n => {
+      let rows=[];
+      for(let i=1;i<=n;i++) rows.push('*'.repeat(i)+' '.repeat(2*(n-i))+'*'.repeat(i));
+      for(let i=n;i>=1;i--) rows.push('*'.repeat(i)+' '.repeat(2*(n-i))+'*'.repeat(i));
+      return rows.join('\n');
+    },
+    logic:`Upper half row i (1→n): i stars + 2*(n-i) spaces + i stars\nLower half row i (n→1): same formula`,
+    template:`for (int i=1;i<=n;i++) {\n    // left stars, spaces, right stars\n}\nfor (int i=n;i>=1;i--) {\n    // same\n}`,
+    solution:`for (int i=1;i<=n;i++) {\n    for(int j=0;j<i;j++) System.out.print("*");\n    for(int j=0;j<2*(n-i);j++) System.out.print(" ");\n    for(int j=0;j<i;j++) System.out.print("*");\n    System.out.println();\n}\nfor (int i=n;i>=1;i--) {\n    for(int j=0;j<i;j++) System.out.print("*");\n    for(int j=0;j<2*(n-i);j++) System.out.print(" ");\n    for(int j=0;j<i;j++) System.out.print("*");\n    System.out.println();\n}`
+  },
+
+  // ── NUMBER PATTERNS ─────────────────────────────────────────
+  {
+    id:8, cat:'Number', title:'Number Triangle', diff:'easy',
+    desc:'Print 1, 1 2, 1 2 3, ... increasing row numbers.',
+    tags:['numbers','triangle'],
+    pattern: n => Array.from({length:n},(_,i)=>Array.from({length:i+1},(_,j)=>j+1).join(' ')).join('\n'),
+    logic:`Row i: print 1 to i\nOuter loop i from 1 to n\nInner loop j from 1 to i → print j`,
+    template:`for (int i=1;i<=n;i++) {\n    for (int j=1;j<=i;j++) {\n        System.out.print(___ + " ");\n    }\n    System.out.println();\n}`,
+    solution:`for (int i=1;i<=n;i++) {\n    for (int j=1;j<=i;j++) {\n        System.out.print(j + " ");\n    }\n    System.out.println();\n}`
+  },
+  {
+    id:9, cat:'Number', title:'Same Row Number', diff:'easy',
+    desc:'Each row i contains the number i repeated i times.',
+    tags:['row number','repetition'],
+    pattern: n => Array.from({length:n},(_,i)=>Array.from({length:i+1},()=>i+1).join(' ')).join('\n'),
+    logic:`Row i: print i, repeated i times\nInner loop: j from 1 to i, always print i (not j)`,
+    template:`for (int i=1;i<=n;i++) {\n    for (int j=1;j<=i;j++) {\n        System.out.print(___ + " ");\n    }\n    System.out.println();\n}`,
+    solution:`for (int i=1;i<=n;i++) {\n    for (int j=1;j<=i;j++) {\n        System.out.print(i + " ");\n    }\n    System.out.println();\n}`
+  },
+  {
+    id:10, cat:'Number', title:'Floyd\'s Triangle', diff:'medium',
+    desc:'Consecutive numbers filling rows — 1 / 2 3 / 4 5 6 / ...',
+    tags:['Floyd','consecutive','counter'],
+    pattern: n => { let rows=[],c=1; for(let i=1;i<=n;i++){let r=[];for(let j=1;j<=i;j++)r.push(c++);rows.push(r.join(' '));}return rows.join('\n'); },
+    logic:`Use a counter variable starting at 1\nFor each cell, print counter then increment it\nCounter continues across rows`,
+    template:`int count = 1;\nfor (int i=1;i<=n;i++) {\n    for (int j=1;j<=i;j++) {\n        System.out.print(___ + " ");\n        ___++;\n    }\n    System.out.println();\n}`,
+    solution:`int count = 1;\nfor (int i=1;i<=n;i++) {\n    for (int j=1;j<=i;j++) {\n        System.out.print(count + " ");\n        count++;\n    }\n    System.out.println();\n}`
+  },
+  {
+    id:11, cat:'Number', title:'Pascal\'s Triangle', diff:'hard',
+    desc:'Classic Pascal\'s Triangle where each value = sum of two values above.',
+    tags:["Pascal","binomial","classic"],
+    pattern: n => {
+      let rows=[]; let row=[1];
+      for(let i=0;i<n;i++){
+        rows.push(' '.repeat(n-i-1)+row.join(' '));
+        let next=[1];
+        for(let j=1;j<row.length;j++) next.push(row[j-1]+row[j]);
+        next.push(1); row=next;
+      }
+      return rows.join('\n');
+    },
+    logic:`Use previous row to compute next:\n• Start with row = [1]\n• Each new element = row[j-1] + row[j]\n• Add leading 1 and trailing 1\nCenter with spaces`,
+    template:`int[] row = {1};\nfor (int i=0;i<n;i++) {\n    // print spaces + row elements\n    int[] next = new int[row.length + 1];\n    next[0] = next[row.length] = 1;\n    for (int j=1;j<row.length;j++) next[j] = ___;\n    row = next;\n}`,
+    solution:`int[] row = {1};\nfor (int i=0;i<n;i++) {\n    for(int s=0;s<n-i-1;s++) System.out.print(" ");\n    for(int v:row) System.out.print(v+" ");\n    System.out.println();\n    int[] next = new int[row.length+1];\n    next[0]=next[row.length]=1;\n    for(int j=1;j<row.length;j++) next[j]=row[j-1]+row[j];\n    row=next;\n}`
+  },
+  {
+    id:12, cat:'Number', title:'Zigzag Number', diff:'medium',
+    desc:'Print numbers in zigzag: odd rows left-to-right, even rows right-to-left.',
+    tags:['zigzag','direction','odd-even'],
+    pattern: n => {
+      let rows=[],c=1;
+      for(let i=1;i<=n;i++){
+        let r=[];
+        for(let j=1;j<=i;j++) r.push(c++);
+        if(i%2===0) r.reverse();
+        rows.push(r.join(' '));
+      }
+      return rows.join('\n');
+    },
+    logic:`Maintain a counter. Fill each row with consecutive numbers.\nIf row is even, reverse the row before printing.\nOdd rows: left-to-right; Even rows: right-to-left.`,
+    template:`int count = 1;\nfor (int i=1;i<=n;i++) {\n    int[] row = new int[i];\n    for (int j=0;j<i;j++) row[j] = count++;\n    if (___ % 2 == 0) { /* reverse row */ }\n    // print row\n}`,
+    solution:`int count = 1;\nfor (int i=1;i<=n;i++) {\n    int[] row = new int[i];\n    for (int j=0;j<i;j++) row[j]=count++;\n    if (i%2==0) {\n        for(int l=0,r=i-1;l<r;l++,r--){int t=row[l];row[l]=row[r];row[r]=t;}\n    }\n    for(int v:row) System.out.print(v+" ");\n    System.out.println();\n}`
+  },
+
+  // ── ALPHABET PATTERNS ───────────────────────────────────────
+  {
+    id:13, cat:'Alphabet', title:'Alphabet Triangle', diff:'easy',
+    desc:'Print A, AB, ABC, ABCD... each row adds next letter.',
+    tags:['char','alphabet','triangle'],
+    pattern: n => Array.from({length:n},(_,i)=>Array.from({length:i+1},(_,j)=>String.fromCharCode(65+j)).join('')).join('\n'),
+    logic:`Row i: print characters A to (A+i)\nInner: j from 0 to i → print (char)(65+j)\nKey: cast int to char`,
+    template:`for (int i=0;i<n;i++) {\n    for (int j=0;j<=i;j++) {\n        System.out.print((char)(___ + j));\n    }\n    System.out.println();\n}`,
+    solution:`for (int i=0;i<n;i++) {\n    for (int j=0;j<=i;j++) {\n        System.out.print((char)('A' + j));\n    }\n    System.out.println();\n}`
+  },
+  {
+    id:14, cat:'Alphabet', title:'Same Letter Row', diff:'easy',
+    desc:'Row 1 has A, Row 2 has BB, Row 3 has CCC, etc.',
+    tags:['alphabet','repetition'],
+    pattern: n => Array.from({length:n},(_,i)=>String.fromCharCode(65+i).repeat(i+1)).join('\n'),
+    logic:`Row i: print letter (A+i) repeated (i+1) times\nOuter: i 0→n-1\nInner: j 0→i → print (char)('A'+i)`,
+    template:`for (int i=0;i<n;i++) {\n    for (int j=0;j<=i;j++) {\n        System.out.print((char)('A' + ___));\n    }\n    System.out.println();\n}`,
+    solution:`for (int i=0;i<n;i++) {\n    for (int j=0;j<=i;j++) {\n        System.out.print((char)('A' + i));\n    }\n    System.out.println();\n}`
+  },
+  {
+    id:15, cat:'Alphabet', title:'Reverse Alphabet Triangle', diff:'medium',
+    desc:'Print Z, ZY, ZYX, ZYXW... using reverse letters.',
+    tags:['reverse','alphabet','Z-to-A'],
+    pattern: n => Array.from({length:n},(_,i)=>Array.from({length:i+1},(_,j)=>String.fromCharCode(90-j)).join('')).join('\n'),
+    logic:`Row i: print Z, Y, X... (i+1 letters)\nInner j from 0 to i → print (char)('Z' - j)`,
+    template:`for (int i=0;i<n;i++) {\n    for (int j=0;j<=i;j++) {\n        System.out.print((char)('Z' - ___));\n    }\n    System.out.println();\n}`,
+    solution:`for (int i=0;i<n;i++) {\n    for (int j=0;j<=i;j++) {\n        System.out.print((char)('Z' - j));\n    }\n    System.out.println();\n}`
+  },
+  {
+    id:16, cat:'Alphabet', title:'Alphabet Pyramid', diff:'hard',
+    desc:'Centered pyramid with A at top, B on 2nd row, etc. Mirrored.',
+    tags:['pyramid','alphabet','mirror'],
+    pattern: n => Array.from({length:n},(_,i)=>{
+      let spaces=' '.repeat(n-i-1);
+      let letters=Array.from({length:i+1},(_,j)=>String.fromCharCode(65+j));
+      let full=[...letters,...letters.slice(0,-1).reverse()];
+      return spaces+full.join('');
+    }).join('\n'),
+    logic:`Row i:\n• Spaces = n-i-1\n• Left half: A B C ... (char)(A+i)\n• Right half: mirror (omit last letter)\nCombine both halves`,
+    template:`for (int i=0;i<n;i++) {\n    // spaces\n    // left half: j 0 to i\n    // right half: j i-1 down to 0\n    System.out.println();\n}`,
+    solution:`for (int i=0;i<n;i++) {\n    for(int s=0;s<n-i-1;s++) System.out.print(" ");\n    for(int j=0;j<=i;j++) System.out.print((char)('A'+j));\n    for(int j=i-1;j>=0;j--) System.out.print((char)('A'+j));\n    System.out.println();\n}`
+  },
+
+  // ── MIXED/SPECIAL ────────────────────────────────────────────
+  {
+    id:17, cat:'Special', title:'Spiral Matrix', diff:'hard',
+    desc:'Fill an n×n matrix with numbers 1 to n² in spiral order.',
+    tags:['matrix','spiral','2D array'],
+    pattern: n => {
+      let mat=Array.from({length:n},()=>Array(n).fill(0));
+      let top=0,bot=n-1,left=0,right=n-1,c=1;
+      while(top<=bot&&left<=right){
+        for(let i=left;i<=right;i++) mat[top][i]=c++;
+        top++;
+        for(let i=top;i<=bot;i++) mat[i][right]=c++;
+        right--;
+        if(top<=bot){for(let i=right;i>=left;i--) mat[bot][i]=c++;bot--;}
+        if(left<=right){for(let i=bot;i>=top;i--) mat[i][left]=c++;left++;}
+      }
+      return mat.map(r=>r.map(v=>String(v).padStart(3)).join('')).join('\n');
+    },
+    logic:`Use 4 boundaries: top, bottom, left, right\nFill: → right, ↓ down, ← left, ↑ up\nShrink boundaries after each direction`,
+    template:`int[][] mat = new int[n][n];\nint top=0,bot=n-1,left=0,right=n-1,c=1;\nwhile(top<=bot && left<=right) {\n    // right, down, left, up\n    // shrink boundaries\n}`,
+    solution:`int[][] mat = new int[n][n];\nint top=0,bot=n-1,left=0,right=n-1,c=1;\nwhile(top<=bot&&left<=right){\n  for(int i=left;i<=right;i++) mat[top][i]=c++; top++;\n  for(int i=top;i<=bot;i++) mat[i][right]=c++; right--;\n  if(top<=bot){for(int i=right;i>=left;i--) mat[bot][i]=c++;bot--;}\n  if(left<=right){for(int i=bot;i>=top;i--) mat[i][left]=c++;left++;}\n}`
+  },
+  {
+    id:18, cat:'Special', title:'Sandglass', diff:'medium',
+    desc:'Combine inverted pyramid and upright pyramid to form a sandglass.',
+    tags:['sandglass','hourglass','two-part'],
+    pattern: n => {
+      let rows=[];
+      for(let i=0;i<n;i++) rows.push(' '.repeat(i)+'* '.repeat(n-i).trim());
+      for(let i=1;i<n;i++) rows.push(' '.repeat(n-1-i)+'* '.repeat(i+1).trim());
+      return rows.join('\n');
+    },
+    logic:`Upper (inverted): row i has (n-i) stars, i spaces\nLower (pyramid): row i has (i+1) stars, n-1-i spaces`,
+    template:`// Upper half\nfor(int i=0;i<n;i++) {\n    // i spaces then (n-i) stars\n}\n// Lower half\nfor(int i=1;i<n;i++) {\n    // (n-1-i) spaces then (i+1) stars\n}`,
+    solution:`for(int i=0;i<n;i++) {\n    for(int s=0;s<i;s++) System.out.print(" ");\n    for(int j=0;j<n-i;j++) System.out.print("* ");\n    System.out.println();\n}\nfor(int i=1;i<n;i++) {\n    for(int s=0;s<n-1-i;s++) System.out.print(" ");\n    for(int j=0;j<=i;j++) System.out.print("* ");\n    System.out.println();\n}`
+  },
+  {
+    id:19, cat:'Special', title:'Cross / Plus', diff:'medium',
+    desc:'Print a cross (+) pattern. Stars only in middle row and middle column.',
+    tags:['cross','plus','2D'],
+    pattern: n => {
+      let size=2*n-1, mid=n-1;
+      return Array.from({length:size},(_,i)=>
+        Array.from({length:size},(_,j)=>i===mid||j===mid?'*':' ').join('')
+      ).join('\n');
+    },
+    logic:`Matrix size = (2n-1) × (2n-1), mid = n-1\nPrint '*' when i==mid OR j==mid\nElse print space`,
+    template:`int size = 2*n-1, mid = n-1;\nfor (int i=0;i<size;i++) {\n    for (int j=0;j<size;j++) {\n        if (___ || ___) System.out.print("*");\n        else System.out.print(" ");\n    }\n    System.out.println();\n}`,
+    solution:`int size=2*n-1,mid=n-1;\nfor(int i=0;i<size;i++) {\n    for(int j=0;j<size;j++) {\n        if(i==mid||j==mid) System.out.print("*");\n        else System.out.print(" ");\n    }\n    System.out.println();\n}`
+  },
+  {
+    id:20, cat:'Special', title:'Number Pyramid (mirrored)', diff:'hard',
+    desc:'Centered pyramid: 1, 2 1 2, 3 2 1 2 3, ...',
+    tags:['pyramid','mirrored','numbers'],
+    pattern: n => Array.from({length:n},(_,i)=>{
+      let spaces=' '.repeat(n-i-1);
+      let left=Array.from({length:i+1},(_,j)=>i+1-j);
+      let right=Array.from({length:i},(_,j)=>j+2);
+      return spaces+[...left,...right].join(' ');
+    }).join('\n'),
+    logic:`Row i (0-indexed):\n• Spaces = n-i-1\n• Left side: (i+1) down to 1\n• Right side: 2 up to (i+1)\nCombine both`,
+    template:`for(int i=0;i<n;i++) {\n    // spaces\n    // left: j from i+1 down to 1\n    // right: j from 2 up to i+1\n}`,
+    solution:`for(int i=0;i<n;i++) {\n    for(int s=0;s<n-i-1;s++) System.out.print(" ");\n    for(int j=i+1;j>=1;j--) System.out.print(j+(j>1?" ":" "));\n    for(int j=2;j<=i+1;j++) System.out.print(j+(j<=i+1?" ":" "));\n    System.out.println();\n}`
+  }
+];
+
+const CATEGORIES = ['All', ...new Set(QUESTIONS.map(q=>q.cat))];
+let currentCat = 'All';
+let currentQ = null;
+let solvedSet = new Set();
+let chatHistory = [];
+let n = 5;
+
+// ── Render category tabs
+function renderCats() {
+  const tabs = document.getElementById('catTabs');
+  tabs.innerHTML = CATEGORIES.map(c=>`
+    <button class="cat-tab${c===currentCat?' active':''}" onclick="setCat('${c}')">${c}</button>
+  `).join('');
+}
+
+function setCat(cat) {
+  currentCat = cat;
+  renderCats();
+  renderList();
+}
+
+// ── Render question list
+function renderList() {
+  const filtered = currentCat==='All' ? QUESTIONS : QUESTIONS.filter(q=>q.cat===currentCat);
+  document.getElementById('filteredCount').textContent = filtered.length;
+  document.getElementById('totalCount').textContent = QUESTIONS.length;
+  document.getElementById('solvedCount').textContent = solvedSet.size;
+  document.getElementById('qList').innerHTML = filtered.map(q=>`
+    <div class="q-item${currentQ?.id===q.id?' active':''}${solvedSet.has(q.id)?' solved':''}" onclick="selectQ(${q.id})">
+      <div class="q-num">#${q.id} · ${q.cat}</div>
+      <div class="q-title">${q.title}</div>
+      <span class="q-diff diff-${q.diff}">${q.diff}</span>
+    </div>
+  `).join('');
+}
+
+// ── Select question
+function selectQ(id) {
+  currentQ = QUESTIONS.find(q=>q.id===id);
+  chatHistory = [];
+  renderList();
+  renderPractice();
+}
+
+// ── Render practice panel
+function renderPractice() {
+  if(!currentQ) return;
+  const q = currentQ;
+  const patternOut = q.pattern(n);
+
+  document.getElementById('practicePanel').innerHTML = `
+    <div class="pattern-display">
+      <div class="panel-header">
+        <span class="panel-title">▸ Pattern Output (n = <span id="nDisplay">${n}</span>)</span>
+        <div class="panel-actions">
+          ${solvedSet.has(q.id)?'<span class="solved-badge">✓ Solved</span>':''}
+        </div>
+      </div>
+      <div class="n-control">
+        <span class="n-label">n =</span>
+        <input type="range" min="3" max="8" value="${n}" class="n-slider" id="nSlider" oninput="updateN(this.value)">
+        <span class="n-val" id="nVal">${n}</span>
+      </div>
+      <div class="pattern-output" id="patternOut">${patternOut}</div>
+    </div>
+
+    <div class="q-info">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <h2>${q.title}</h2>
+        <span class="q-diff diff-${q.diff}">${q.diff}</span>
+      </div>
+      <p class="q-desc">${q.desc}</p>
+      <div class="q-meta">
+        ${q.tags.map(t=>`<span class="q-tag">${t}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="code-area">
+      <div class="panel-header">
+        <span class="panel-title">✍ Your Approach / Code</span>
+        <div class="panel-actions">
+          <button class="btn-sm" onclick="loadTemplate()">Load Template</button>
+          <button class="btn-sm danger" onclick="clearCode()">Clear</button>
+          <button class="btn-sm primary" onclick="markSolved()">✓ Mark Solved</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="codeEditor" placeholder="Write your Java code here... or describe your approach in plain English. Ask the AI tutor below for hints!">${q.template||''}</textarea>
+    </div>
+
+    <div class="ai-section">
+      <div class="panel-header">
+        <span class="panel-title">🤖 AI Pattern Tutor</span>
+        <div class="panel-actions">
+          <button class="btn-sm" onclick="clearChat()">Clear Chat</button>
+        </div>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg ai">
+          <div class="msg-label">AI Tutor</div>
+          Ready to help you solve <b>${q.title}</b>! Ask for a hint, explanation, or paste your code for review. You can also click the quick actions below.
+        </div>
+      </div>
+      <div class="quick-actions">
+        <button class="qa-btn" onclick="quickAsk('Give me a hint without the full solution')">💡 Hint</button>
+        <button class="qa-btn" onclick="quickAsk('Explain the logic step by step')">📖 Explain Logic</button>
+        <button class="qa-btn" onclick="quickAsk('Show me the complete Java solution with comments')">✅ Show Solution</button>
+        <button class="qa-btn" onclick="quickAsk('What is the time complexity?')">⏱ Complexity</button>
+        <button class="qa-btn" onclick="reviewCode()">🔍 Review My Code</button>
+      </div>
+      <div class="chat-input-area">
+        <input class="chat-input" id="chatInput" placeholder="Ask anything about this pattern..." onkeydown="if(event.key==='Enter')sendMsg()">
+        <button class="send-btn" id="sendBtn" onclick="sendMsg()">Send →</button>
+      </div>
+    </div>
+  `;
+}
+
+function updateN(val) {
+  n = parseInt(val);
+  document.getElementById('nVal').textContent = n;
+  document.getElementById('nDisplay').textContent = n;
+  document.getElementById('patternOut').textContent = currentQ.pattern(n);
+}
+
+function loadTemplate() {
+  document.getElementById('codeEditor').value = currentQ.template || '// No template available';
+}
+
+function clearCode() {
+  document.getElementById('codeEditor').value = '';
+}
+
+function markSolved() {
+  solvedSet.add(currentQ.id);
+  renderList();
+  renderPractice();
+}
+
+function clearChat() {
+  chatHistory = [];
+  const cm = document.getElementById('chatMessages');
+  cm.innerHTML = `<div class="msg ai"><div class="msg-label">AI Tutor</div>Chat cleared. Ask me anything about <b>${currentQ.title}</b>!</div>`;
+}
+
+function quickAsk(msg) {
+  document.getElementById('chatInput').value = msg;
+  sendMsg();
+}
+
+function reviewCode() {
+  const code = document.getElementById('codeEditor').value.trim();
+  if(!code) { quickAsk('Review my code'); return; }
+  document.getElementById('chatInput').value = `Please review this code:\n\n${code}`;
+  sendMsg();
+}
+
+async function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const btn = document.getElementById('sendBtn');
+  const msg = input.value.trim();
+  if(!msg || btn.disabled) return;
+
+  input.value = '';
+  btn.disabled = true;
+
+  const cm = document.getElementById('chatMessages');
+  cm.innerHTML += `<div class="msg user"><div class="msg-label">You</div>${escHtml(msg)}</div>`;
+
+  const loadingId = 'load_'+Date.now();
+  cm.innerHTML += `<div class="msg ai" id="${loadingId}"><div class="msg-label">AI Tutor</div><div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+  cm.scrollTop = cm.scrollHeight;
+
+  chatHistory.push({role:'user', content: msg});
+
+  const systemPrompt = `You are an expert Java programming tutor specializing in pattern programs. 
+The student is practicing: "${currentQ.title}" (${currentQ.diff} difficulty).
+Pattern description: ${currentQ.desc}
+Logic hint: ${currentQ.logic}
+The pattern when n=${n}:
+${currentQ.pattern(n)}
+
+Rules:
+- Be concise but thorough. Use code blocks for Java code.
+- For hints: guide without giving full solution.
+- For logic: explain loops, conditions, variables step by step.
+- For solution requests: give complete, commented Java code.
+- Encourage the student. Point out what they got right before correcting mistakes.
+- Keep responses focused on THIS specific pattern.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system: systemPrompt,
+        messages: chatHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Sorry, I could not respond.';
+    chatHistory.push({role:'assistant', content: reply});
+    
+    const el = document.getElementById(loadingId);
+    if(el) el.innerHTML = `<div class="msg-label">AI Tutor</div>${formatReply(reply)}`;
+  } catch(e) {
+    const el = document.getElementById(loadingId);
+    if(el) el.innerHTML = `<div class="msg-label">AI Tutor</div><span style="color:var(--error)">Error connecting to AI. Please try again.</span>`;
+  }
+
+  btn.disabled = false;
+  cm.scrollTop = cm.scrollHeight;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+function formatReply(text) {
+  // Format code blocks
+  text = text.replace(/```java\n?([\s\S]*?)```/g, (_,c)=>`<pre>${escHtml(c.trim())}</pre>`);
+  text = text.replace(/```\n?([\s\S]*?)```/g, (_,c)=>`<pre>${escHtml(c.trim())}</pre>`);
+  text = text.replace(/`([^`]+)`/g, (_,c)=>`<code style="background:rgba(0,229,160,0.1);padding:1px 5px;border-radius:3px;color:var(--accent)">${escHtml(c)}</code>`);
+  text = text.replace(/\n/g,'<br>');
+  return text;
+}
+
+// ── Init
+renderCats();
+renderList();
+document.getElementById('totalCount').textContent = QUESTIONS.length;
+</script>
+</body>
+</html>
